@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관련기사 Tab Menu</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <div class="conBlkBase3rd">
+        <div class="tab-menu">
+            <button class="tablink" onclick="openTab(event, 'related')">관련 콘텐츠</button>
+            <button class="tablink" onclick="openTab(event, 'latest')">놓치면 후회해요!</button>
+        </div>
+        <div id="related" class="tabcontent">
+            <div class="black-background">
+                <h3>슬라이드</h3>
+                <p>슬라이드내용 올리기</p>
+               
+            </div>
+        </div>
+        <div id="latest" class="tabcontent">
+            <div id="initialContent" class="content_desc">
+                <p>노루페인트, ‘우주항공·방산용 실란트’ 국산화 개발 착수</p>
+                <p>노루페인트, 서대문형무소역사관 ‘통곡의 미루나무’ 보존 협력</p>
+            </div>
+            <div id="moreContent" class="content_desc" style="display: none;">
+                <p>노루그룹, 2024 밀라노 디자인 위크 ‘홍철 원더랜드’ 전시 성료</p>
+                <p>노루페인트, ‘철강 리사이클 방청도료’ 국제 인증기관서 재활용 소재 인증 획득</p>
+                <p>추가 관련 기사 5</p>
+            </div>
+            <button id="moreBtn">더보기</button>
+        </div>
+    </div>
+
+    <script src="./common.js"></script>
+</body>
+</html>
