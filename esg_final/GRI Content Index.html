@@ -1,0 +1,3748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<link rel="stylesheet" href="sub.css">
+<link rel="stylesheet" href="layout.css">
+<link rel="stylesheet" href="common.css">
+<!-- CDNJS를 통해 TweenMax.min.js 로드 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+<!-- jQuery CDN (최신 버전) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!-- fullPage.js CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css" integrity="sha512-dRb2GQ2mE+gZ1+qeQ4dJny/WIhWztfz0KzQz1MAmj4W7u1jv95efmkTjdVkxRRPLX4PhXk0nqLxhdWwCUsQbTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="sub.js"></script>
+<script src="common.js"></script>
+<!-- fullPage.js JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js" integrity="sha512-XS4TFW+IftKJ3GpXhM5kQ6jkHVOQ8LrI+eIT4FSlPfnjy2tDwNny4m9WnuOTw5bMJnO5h4l7R43cP/YYsyOFNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<head>
+	<!--#include virtual="/include/head.asp"-->
+	<style>
+    
+        @font-face {
+            font-family: 'Pretendard-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard-Regular';
+            line-height: 1.6;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        .layout {
+    display: flex;
+}
+
+.nav-container {
+  width: 300px;
+            height: 100vh;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 40px 20px;
+            position: fixed;
+            left: 0;
+            overflow-y: auto;
+            border-right: 1px solid rgba(0, 53, 145, 0.1);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+}
+
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu li {
+    margin: 0;
+}
+
+.nav-menu li a {
+  color: #495057;
+            text-decoration: none;
+            display: block;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+}
+
+.nav-menu li a:hover {
+  background-color: rgba(0, 53, 145, 0.05);
+            color: #003591;
+            padding-left: 25px;
+}
+
+.nav-menu li a.active {
+  background-color: #003591;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 53, 145, 0.2);
+}
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background-color: #003591;
+            transition: height 0.3s ease;
+        }
+
+        .nav-menu a:hover::before {
+            height: 70%;
+        }
+
+        .nav-menu a.active::before {
+            height: 70%;
+            background-color: white;
+        }
+
+        .top-button {
+    position: fixed;
+    bottom: 20px;
+    right: 3%;
+    display: none; /* Hidden by default */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+}
+
+.top-button:hover {
+    background-color: #0056b3;
+}
+        .content {
+          margin-left: 20%;
+    padding: 50px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+        }
+
+        header {
+            margin-bottom: 1.5rem;
+        }
+
+        div.main_title{
+            color: #232324;
+            text-align: left;
+            font-size: 24px;
+            padding-top: 40px;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+
+        h2 {
+            color: #003591;
+            font-size: 22px;
+            text-align: left;
+            padding-top: 20px;
+            padding-bottom: 12px;
+        }
+
+        caption {
+            text-align: right;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            background-color: #fff;
+            margin-top: 0.7rem;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 0.8rem;
+            text-align: center;
+        }
+
+        th {
+            text-align: center;
+            border-top: 1px solid #232324;
+            background-color: #f0f3f7;
+            font-weight: bold;
+        }
+
+        /* 기존 스타일 유지 */
+        td:last-child {
+            text-align: left;
+        }
+
+        /* 근로자 정보 테이블에만 적용할 스타일 */
+        .worker-info-table td:last-child {
+            text-align: center;
+        }
+
+        span {
+            display: inline-block;
+         
+        }
+
+
+        .title_table {
+            color: #003591;
+            padding-bottom: 2px;
+            font-weight: 500;
+        }
+
+        .eco_policy {
+            font-size: 15px;
+            padding-left: 10px;
+            padding-bottom: 4px;
+        }
+
+        .desc_table {
+            padding: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #003591;
+            margin-top: 10px;
+        }
+
+        /* 서브 네비게이션 스타일 추가 */
+        .layout {
+    display: flex;
+}
+
+
+.content_main {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+        .sub-nav-menu {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+
+        .sub-nav-menu li a {
+            display: block;
+            padding: 8px 16px;
+            color: #495057;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .sub-nav-menu li a:hover,
+        .sub-nav-menu li a.active {
+            background-color: #003591;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .sub-nav-container {
+                padding: 10px;
+            }
+
+            .sub-nav-menu {
+                gap: 5px;
+            }
+
+            .sub-nav-menu li a {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+
+        .legend {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        td {
+            text-align: center;
+            padding: 10px;
+            vertical-align: middle;
+        }
+
+        /* Circle symbols */
+        td:contains("●") {
+            content: "●";
+            color: #000;
+        }
+
+        td:contains("◐") {
+            content: "◐";
+            color: #000;
+        }
+
+        td:contains("○") {
+            content: "○";
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+	<div id="wrap" class="sub">
+		<div id="header">
+      
+        <h1><a href="/" class="logo">노루오토코팅</a></h1>
+
+        
+  <div class="gnbWrap">
+    <ul id="gnb" class="clearfix">
+      <li>
+        <a href="/about/profile.asp"><span>회사 소개</span></a>
+        <ul class="depth2">
+          <!--<li><a href="/about/ceo.asp">CEO 인사말</a></li>-->
+          <li><a href="/about/profile.asp">Company Profile</a></li>
+          <li><a href="/about/people.asp">인재상</a></li>
+          <li><a href="https://www.noroopaint.com/inc/filedown.asp?fileloc=/e-book/pdf/&filenm=noroo70years.pdf">노루70년사<em class="btnLink"></em></a></li>
+          <li><a href="/about/partners.asp">자회사 및 관계사</a></li>
+          <li><a href="/about/global.asp">글로벌 네트워크</a></li>
+          <li><a href="/about/contactus.asp">찾아오시는 길</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/product/product01.asp"><span>제품 소개</span></a>
+        <ul class="depth2">
+          <li><a href="/product/product01.asp">외장 도료</a></li>
+          <li><a href="/product/product02.asp">내장 도료</a></li>
+          </ul>
+      </li>
+      <li>
+        <a href="/customer/customer01.asp"><span>고객 정보</span></a>
+        <ul class="depth2">
+          <li><a href="/customer/customer01.asp">국내 고객</a></li>
+          <li><a href="/customer/customer02.asp">해외 고객</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/csr/csr.asp"><span>ESG</span></a>
+        <ul class="depth2">
+          <li><a href="/csr/csr.asp"><span>ESG 경영전략</span></a></li>
+          <li><a href="/csr/environment.asp">환경</a></li>
+          <li><a href="/csr/social.asp">사회</a></li>
+          <li><a href="/csr/governance.asp">지배구조</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/board/board.asp"><span>고객 지원</span></a>
+        <ul class="depth2">
+          <li><a href="/board/board.asp">공지사항</a></li>
+          <!--<li><a href="/board/recruit.asp">채용 안내</a></li>-->
+          <li><a href="/board/service.asp">문의처</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div><!--//gnbWrap section-->
+  <div class="dayCount">
+    무재해일수 : <strong>300</strong> 일
+  </div>
+  <div class="gnbBtn">
+    <div class="lang">
+      <a href="/"><span>KOR <em></em></span></a>
+      <ul>
+        <li><a href="/en/index.asp"><span>ENG</span></a></li>
+        <li><a href="/cn/index.asp"><span>CHN</span></a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <a href="" class="btn_all_menu">
+    <div>
+      <span class="barTop"></span>
+      <span class="barMid"></span>
+      <span class="barBot"></span>
+    </div>
+  </a>
+  
+<div class="allMenuWrap">
+    <div class="allMenuWrap_inner">
+      <div class="allMenu_inner">
+        <ul class="allMenu">
+          <li>
+            <a href="/about/profile.asp">회사 소개</a>
+            <p>회사 소개</p>
+            <ul class="dep2">
+             <li><a href="/about/ceo.asp">CEO 인사말</a></li>
+              <li><a href="/about/profile.asp">Company Profile</a></li>
+              <li><a href="/about/people.asp">인재상</a></li>
+              <li><a href="https://www.noroopaint.com/inc/filedown.asp?fileloc=/e-book/pdf/&filenm=noroo70years.pdf">노루70년사<em class="btnLink"></em></a></li>
+              <li><a href="/about/partners.asp">자회사 및 관계사</a></li>
+              <li><a href="/about/global.asp">글로벌 네트워크</a></li>
+              <li><a href="/about/contactus.asp">찾아오시는 길</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/product/product01.asp">제품 소개</a>
+            <p>제품 소개</p>
+            <ul class="dep2">
+              <li><a href="/product/product01.asp">외장 도료</a></li>
+              <li><a href="/product/product02.asp">내장 도료</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/customer/customer01.asp">고객 정보</a>
+            <p>고객 정보</p>
+            <ul class="dep2">
+              <li><a href="/customer/customer01.asp">국내 고객</a></li>
+              <li><a href="/customer/customer02.asp">해외 고객</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/csr/csr.asp">ESG</a>
+            <p>ESG</p>
+            <ul class="dep2">
+              <li><a href="/csr/csr.asp">ESG 경영전략</a></li>
+              <li><a href="/csr/environment.asp">환경</a></li>
+              <li><a href="/csr/social.asp">사회</a></li>
+              <li><a href="/csr/governance.asp">지배구조</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/board/board.asp">고객 지원</a>
+            <p>고객 지원</p>
+            <ul class="dep2">
+              <li><a href="/board/board.asp">공지사항</a></li>
+              -<li><a href="/board/recruit.asp">채용안내</a></li>
+              <li><a href="/board/service.asp">문의처</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="amDim"></div>
+  
+			<!--#include virtual="/include/gnb.asp"-->
+		</div>
+		<!--//header section-->
+
+
+    
+		<div id="container">
+			<div class="subVisual sub5">
+				<h2>환경</h2>
+			</div>
+			
+			<!--// location section-->
+<div class="layout">
+  <nav class="nav-container">
+    <ul class="nav-menu">
+      <li><a href="#gri_index">GRI Content Index</a></li>
+
+      <!-- GRI2 Series -->
+      <li><a href="#gri2_index">항목별 CONTENTS</a></li>
+      <li><a href="#gri2_org">GRI2 조직 및 보고 관행</a></li>
+      <li><a href="#gri2_workers">GRI2 활동 및 근로자</a></li>
+      <li><a href="#gri2_governance">GRI2 거버넌스</a></li>
+      <li><a href="#gri2_strategy">GRI2 전략, 정책 및 관행</a></li>
+      <li><a href="#gri2_stakeholders">GRI2 이해관계자 참여</a></li>
+      <li><a href="#gri3_topics">GRI3 중요주제에 대한 보고</a></li>
+
+      <!-- Economic Series -->
+      <li><a href="#gri201">GRI 201 경제성과</a></li>
+      <li><a href="#gri202">GRI 202 시장지위</a></li>
+      <li><a href="#gri203">GRI 203-2 간접경제과</a></li>
+      <li><a href="#gri205">GRI 205 반부패 정책 및 절차</a></li>
+      <li><a href="#gri206">GRI 206 경쟁저해행위</a></li>
+
+      <!-- Environmental Series -->
+      <li><a href="#gri301">GRI 301 원재료</a></li>
+      <li><a href="#gri302">GRI 302 에너지</a></li>
+      <li><a href="#gri303">GRI 303 용수 및 폐수</a></li>
+      <li><a href="#gri304">GRI 304 생물다양성</a></li>
+      <li><a href="#gri305">GRI 305 배출</a></li>
+      <li><a href="#gri306">GRI 306 폐기물</a></li>
+      <li><a href="#gri308">GRI 308 공급업체 환경평가</a></li>
+
+      <!-- Social Series -->
+      <li><a href="#gri401">GRI 401 고용관리</a></li>
+      <li><a href="#gri402">GRI 402 노사관계</a></li>
+      <li><a href="#gri403">GRI 403 산업안전보건</a></li>
+      <li><a href="#gri404">GRI 404 훈련 및 교육</a></li>
+      <li><a href="#gri405">GRI 405 다양성과 기회균등</a></li>
+      <li><a href="#gri408">GRI 408 아동노동</a></li>
+      <li><a href="#gri409">GRI 409 강제노동</a></li>
+      <li><a href="#gri413">GRI 413 지역사회</a></li>
+      <li><a href="#gri414">GRI 414 공급업체 사회 영향 평가</a></li>
+      <li><a href="#gri415">GRI 415 공공정책</a></li>
+      <li><a href="#gri416">GRI 416 고객 안전 보건</a></li>
+      <li><a href="#gri418">GRI 418 고객개인정보 관리</a></li>
+    </ul>
+  </nav>
+		
+
+      <main class="content">
+        <div>
+        
+        </div>
+        
+        <!-- Rest of your existing content here -->
+        <!-- 윤리정책 -->
+         <div>
+        <section id="gri_index">
+            <header>
+                <h1>GRI Content Index</h1>
+            </header>
+
+
+
+            <table style="width: 100%; border-collapse: collapse;">
+                <colgroup>
+                    <col style="width: 20%;">
+                    <col style="width: 40%;">
+                    <col style="width: 40%;">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td>보고에 대한 성명</td>
+                       
+                        <td colspan="2">(주)노루오토코팅은 GRI 보고 표준에 따라(in accordance with GRI Standards) 본 내용을 작성 및 보고합니다.<br>  (보고 기간 : 2023.01.01. ~ 2023.12.31.)</td>
+                    </tr>
+                    <tr>
+                        <td>GRI 기준</td>
+                       
+                        <td colspan="2">GRI 1: Foundation 2021</td>
+                    </tr>
+                    <tr>
+                        <td>GRI 산업 표준 적용</td>
+                       
+                        <td colspan="2">현재 적용 가능한 산업 표준 없음</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!--2.협력사 행동규범 -->
+        <section id="gri2_index">
+            <h1>항목별 CONTENTS 기입</h1>
+            <h2>GRI 2: General Disclosures 2021</h2>
+            
+            <table style="width: 100%; border-collapse: collapse;">
+                <colgroup>
+                    <col style="width: 15%;">
+                    <col style="width: 10%;">
+                    <col style="width: 55%;">
+                    <col style="width: 20%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>GRI 번호</th>
+                        <th>지표명</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 조직 및 보고 관행 -->
+                    <tr>
+                        <td rowspan="5">조직 및 보고 관행</td>
+                        <td>2-1</td>
+                        <td>조직 세부사항</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-2</td>
+                        <td>조직의 지속가능성 보고에 포함된 조직</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-3</td>
+                        <td>보고 기간, 주기 및 문의처</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-4</td>
+                        <td>정보의 수정</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-5</td>
+                        <td>외부 검증</td>
+                        <td></td>
+                    </tr>
+        
+                    <!-- 활동 및 근로자 -->
+                    <tr>
+                        <td rowspan="4">활동 및 근로자</td>
+                        <td>2-6</td>
+                        <td>활동, 가치 사슬, 사업 관계</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-7</td>
+                        <td>임직원</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-8</td>
+                        <td>임직원이 아닌 근로자</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-9</td>
+                        <td>지배 구조 및 구성</td>
+                        <td></td>
+                    </tr>
+        
+                    <!-- 거버넌스 -->
+                    <tr>
+                        <td rowspan="8">거버넌스</td>
+                        <td>2-10</td>
+                        <td>최고의사결정기구의 임명 및 선정</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-11</td>
+                        <td>최고의사결정기구 의장</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-12</td>
+                        <td>영향 관리에 대한 최고의사 결정기구의 역할</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-13</td>
+                        <td>영향 관리에 대한 책임의 위임</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-14</td>
+                        <td>지속가능성 보고에 대한 최고의사 결정기구의 역할</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-16</td>
+                        <td>중요 사안에 대한 커뮤니케이션</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-17</td>
+                        <td>최고의사결정기구의 전문성</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-20</td>
+                        <td>보수 결정 절차</td>
+                        <td></td>
+                    </tr>
+        
+                    <!-- 전략, 정책 및 관행 -->
+                    <tr>
+                        <td rowspan="6">전략, 정책 및 관행</td>
+                        <td>2-23</td>
+                        <td>정책</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-24</td>
+                        <td>정책 명시</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-25</td>
+                        <td>부정적 영향 개선을 위한 프로세스</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-26</td>
+                        <td>자문 및 우려 제기에 대한 절차</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-27</td>
+                        <td>법률 및 규정 준수</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2-28</td>
+                        <td>협회의 멤버십 현황</td>
+                        <td></td>
+                    </tr>
+        
+                    <!-- 이해관계자 참여 -->
+                    <tr>
+                        <td>이해관계자 참여</td>
+                        <td>2-29</td>
+                        <td>이해관계자 참여 정책</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <h2>GRI 3: Material Topics</h2>
+            <table style="width: 100%; border-collapse: collapse;">
+                <colgroup>
+                    <col style="width: 15%;">
+                    <col style="width: 10%;">
+                    <col style="width: 55%;">
+                    <col style="width: 20%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>GRI 번호</th>
+                        <th>지표명</th>
+                        <th>Contents</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="3">중요 주제에 대한 보고</td>
+                        <td>3-1</td>
+                        <td>중요 주제 결정 프로세스</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3-2</td>
+                        <td>중요 주제 목록</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3-3</td>
+                        <td>중요 주제 관리</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="gri2_org">
+            <h1>GRI2 조직 및 보고 관행</h1>
+
+            <!-- 2-1 조직 세부사항 -->
+            <div class="gri-section">
+                <h2>2-1. 조직 세부사항</h2  >
+                <p>기업현황(2023년 12월말 기준)</p>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>회사명</th>
+                            <td style="border-top:1px solid #232324;">(주)노루오토코팅</td>
+                        </tr>
+                        <tr>
+                            <th>대표이사</th>
+                            <td>김종우</td>
+                        </tr>
+                        <tr>
+                            <th>본사위치</th>
+                            <td>경기도 화성시 장안면 장안공단 7길 28</td>
+                        </tr>
+                        <tr>
+                            <th>설립일</th>
+                            <td>1996-01-01</td>
+                        </tr>
+                        <tr>
+                            <th>주요제품</th>
+                            <td>자동차 바디 및 내외장 플라스틱용 도료</td>
+                        </tr>
+                        <tr>
+                            <th>임직원 수</th>
+                            <td>346 명</td>
+                        </tr>
+                        <tr>
+                            <th>홈페이지</th>
+                            <td>www.norooautocoat.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 2-2 조직의 지속가능성 보고에 포함된 주체 -->
+            <div class="gri-section">
+                <h2>2-2. 조직의 지속가능성 보고에 포함된 주체</h2>
+                <p>본 보고서의 보고 주체는 (주)노루오토코팅에 한정되며 지주회사 및 관계사와는 무관합니다.</p>
+            </div>
+
+            <!-- 2-3 보고 기간, 주기 및 문의처 -->
+            <div class="gri-section">
+                <h2>2-3. 보고 기간, 주기 및 문의처</h2>
+                <p>보고 기간, 주기 및 문의처</p>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <colgroup>
+                        <col style="width: 20%;">
+                        <col style="width: 80%;">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>보고서<br>정보</th>
+                            <td style="border-top: 1px solid #232324;">본 보고서는 지속가능경영 보고서 글로벌 가이드 라인인 GRI(Global Reporting Initiative) 기준에 준하여 작성되었으며 당사의 ESG 전략/계획 및 실적을 포함하고 있습니다.</td>
+                        </tr>
+                        <tr>
+                            <th>보고 기간<br>및 주기</th>
+                            <td>보고서는 2023년 1월 1일부터 12월 31일까지의<br>계획 및 활동 성과를 중심으로 작성했으며,<br>매년 국문으로 발간하고 있습니다.</td>
+                        </tr>
+                        <tr>
+                            <th>문의처</th>
+                            <td>경기도 화성시 장안면 장안공단 7길 28<br>(주)노루오토코팅 ESG 추진실 / jhlee@noroo.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="gri-section">
+                <h2>2-4. 정보의 수정</h2>
+                <p>해당 있는 경우 각 정보에 주석으로 표기합니다.</p>
+            </div>
+            <div class="gri-section">
+                <h2>2-5. 외부 검증</h2>
+                <p>본 보고서는 외부 검증을 받지 않았습니다.</p>
+            </div>
+
+        </section>
+
+        <!-- 활동및 근로자 -->
+        <section id="gri2_workers">
+            <h1>GRI2 임직원 및 근로자에 관한 정보활동 및 근로자</h1>
+            <p>기업 내에서 그룹웨어 '노루포탈'과 노루오토코팅 홈페이지 등의 업무용 인프라를 제공하고 있습니다.<br>
+            노루오토코팅은 근로기준법, 모성보호법 등 관련 법령을 준수하고 취업규칙, 단체협약 등 제반 사규상 명시적으로 <br> 차별 내지 불이익을 금하며 여성,
+            장애인 등의 채용을 통해 임직원의 다양성을 확보하고 있습니다.</p>
+        
+
+            <h3>- 근로자 정보 (총임직원, 정규직, 비정규직)</h3>
+            <p style="display: block; text-align: right;">[단위명: 명]</p>
+            <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>구분1</th>
+                        <th>구분2</th>
+                        <th>2021년</th>
+                        <th>2022년</th>
+                        <th>2023년</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">총임직원</td>
+                        <td>정규직</td>
+                        <td>377</td>
+                        <td>360</td>
+                        <td>346</td>
+                    </tr>
+                    <tr>
+                        <td>비정규직</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="worker-info-table"  style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>구분2</th>
+                        <th>2021년</th>
+                        <th>2022년</th>
+                        <th>2023년</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">정규직</td>
+                        <td>남성</td>
+                        <td>359</td>
+                        <td>342</td>
+                        <td>330</td>
+                    </tr>
+                    <tr>
+                        <td>여성</td>
+                        <td>18</td>
+                        <td>18</td>
+                        <td>16</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">비정규직</td>
+                        <td>남성</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>여성</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">관리자</td>
+                        <td>남성</td>
+                        <td>30</td>
+                        <td>22</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>여성</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <p style="margin-bottom: 1rem;
+            position: relative;
+            top: -20px;
+            color: rgb(35 35 36 / 80%);">※ 연말 기준(파견직, 휴직, 인턴 제외)</p>
+        
+            <h3>- 근로자 정보 (이직)</h3>
+            <table class="worker-info-table"  style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>구분1</th>
+                        <th>구분2</th>
+                        <th>2021년</th>
+                        <th>2022년</th>
+                        <th>2023년</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">정규직</td>
+                        <td>남성</td>
+                        <td>6</td>
+                        <td>20</td>
+                        <td>18</td>
+                    </tr>
+                    <tr>
+                        <td>여성</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>3</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <h3>- 근로자 정보 (다양성)</h3>
+            <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>구분1</th>
+                        <th>구분2</th>
+                        <th>2021년</th>
+                        <th>2022년</th>
+                        <th>2023년</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2">장애</td>
+                        <td>남성</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>여성</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="gri2_governance">
+            <h1>GRI2 거버넌스</h1>
+            <table style="width: 100%; border-collapse: collapse;">
+                <colgroup>
+                    <col style="width: 30%;">
+                    <col style="width: 70%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: #003591;">2-9. 지배 구조 및 구성</td>
+                        <td>최고 의사결정기구인 이사회는 8명의 이사와 2명의 감사로 구성되어 기업의 장기 성장을 위한 안건을 의결하는 역할을 맡고 있습니다. 2023년 이사회 출석률은 100% 입니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-10. 최고의사결정기구의<br> 임명 및 선정</td>
+                        <td>(주)노루오토코팅 이사회의 이사 선임은 주주총회의 결결로 이루어지고 있습니다. 이사회는 회사의 최고 의사결정 기구로서 대표이사와 이사회의 경영 활동을 종합할 실질적인 권한과 책임을 갖습니다. 이사회는 전문성과 다양성을 고려하여 구성하며, 사업환경의 기회와 리스크를 다양한 관점에서 종합 검토할 수 있도록 합니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-11. 최고의사결정기구 의장</td>
+                        <td>(주)노루오토코팅의 대표이사가 이사회 의장직을 수행하고 있습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-12. 영향 관리 감독에 대한<br> 최고의사결정기구의 역할</td>
+                        <td>(주)노루오토코팅은 ESG 활동 관리 및 모니터링을 위해 이사회 산하에 ESG경영추진실을 중심으로 관련 부서와 긴밀히 협업을 진행하고 있습니다. ESG 경영추진실은 5개 (환경, 인권/노동/사회공헌, 동반성장, 준법/윤리, 심사대응) 분과로 구성되어 이행 과제를 실행하고 있습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-13. 지속가능성 보고에 대한<br> 최고의사결정기구의 역할</td>
+                        <td>(주)노루오토코팅은 대표이사 산하 ESG경영추진실을 구성하여 ESG 관련 주요 안건에 대해서 논의하고 대책을 마련하고 있습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-14. 지속가능성 보고에 대한<br> 최고의사결정기구의 역할</td>
+                        <td>ESG경영추진실은 연 1회, ESG 관련 활동 점검 및 실적 보고를 진행하고 있습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-16. 중요 사안에 대한<br> 커뮤니케이션</td>
+                        <td>(주)노루오토코팅은 이사회의 주관으로 전 임원이 참석하는 ESG경영추진실을 연 1회 운영하고 있습니다. 환경, 사회, 지배구조와 관련된 주요 이슈 사항을 점검하고 이해관계자들을 위한 지속 가능한 미래를 만들어 나가기 위해 노력하고 있습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-17. 최고의사결정기구의<br> 집단지식</td>
+                        <td>(주)노루오토코팅 이사회 구성원들은 (주)노루오토코팅에서 영위하는 사업영역의 전문가들로 구성되어 있으며, 자동차 도료/도장/수지/코팅/필름 관련 주요 기술 및 사업에 관한 이해도가 높습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">보수 결정 절차</td>
+                        <td>(주)노루오토코팅은 이사의 보수를 상법 제388조 및 당사 정관에 따라 주주총회의 승인을 받아 이사 보수 한도 내에서 지급합니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="gri2_strategy">
+            <h1>GRI2 전략, 정책 및 관행</h1>
+            <table style="width: 100%; border-collapse: collapse;">
+                <colgroup>
+                    <col style="width: 30%;">
+                    <col style="width: 70%;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>구분</th>
+                        <th>내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: #003591;">2-23. 정책</td>
+                        <td>(주)노루오토코팅의 사내 정책은 정부의 규정을 참고하여 제정 및 개정합니다. 제정·개정 시 보고체계를 통해 보고됩니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-24. 정책 명시</td>
+                        <td>(주)노루오토코팅은 홈페이지 내 기업 운영 정책 및 절차에 대해 명시하고 있습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-25. 부정적 영향 개선을 위한 프로세스</td>
+                        <td>(주)노루오토코팅은 직장 내 괴롭힘, 부정비리 제보 등 고충처리를 위한 채널을 운영 중입니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-26. 자문 및 우려 제기에 대한 절차</td>
+                        <td>(주)노루오토코팅은 홈페이지 내 고충처리시스템을 통해 우려를 제기할 수 있습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-27. 법률 및 규정 준수</td>
+                        <td>보고 기간 중 법률을 위반한 중대한 사항이 없습니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #003591;">2-28. 협회의 멤버십 현황</td>
+                        <td>화학물질 관리협회, 경기도 환경기술협회, 대산산업안전협회, 경기도 공정안전관리협의회에 가입하고 있습니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="gri2_stakeholders">
+            <h1>GRI2 이해관계자 참여</h1>
+            <h2>2-29. 이해관계자 참여 정책</h2>
+            <p>(주)노루오토코팅은 사회적 책임을 다하기 위해 노력하고 있습니다. 주요 이해당사자로는 임직원, 주주(투자자), 정부, 협력업체(대리점), 고객, 지역사회/NGO가 있습니다. 이해관계자는 당사의 경영활동에 직간접적으로 접촉하면서 주기적으로 소통을 하고 있는 주체로 선정하였습니다. 당사는 다양한 방법을 통해 경영활동에 있어 이해관계자의 참여를 보장하고 있습니다. 먼저 임직원과는 노사협의회를 통해 매분기마다 정기적인 회의를 개최하고 있으며, 주주(투자자)와는 연 1회 정기 주주총회, 상/하반기 이사회의 정기적(연1회)/비정기적인 공시(배당 등 NRH표준공시)로 소통하고 있습니다. 정부 및 협력업체, 고객과는 상생협력과 동반성장을 위해 협력사 포럼 실시, 신문고 등의 소통 시스템과 주기적인 회의를 통해 의견을 수렴하고 있습니다. 마지막으로 지역사회/NGO와는 연 1회, 지역사회 불우이웃돕기 나눔 활동에 동참하며 사회적 책임을 다하기 위해 노력하고 있습니다.</p>
+        
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>이해관계자</th>
+                        <th>주요 관심사</th>
+                        <th>당사의 대응</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>임직원</td>
+                        <td>안전한 근로환경, 안전보건 관리</td>
+                        <td>사업장 무재해, 목표 관리</td>
+                    </tr>
+                    <tr>
+                        <td>주주(투자자)</td>
+                        <td>준법경영, 지배구조 안정성, 배당의 결정</td>
+                        <td>주주총회/이사회, 공시, 홈페이지</td>
+                    </tr>
+                    <tr>
+                        <td>정부</td>
+                        <td>기후변화 대응</td>
+                        <td>친환경 에너지 사용, 배출 및 폐기물 관리</td>
+                    </tr>
+                    <tr>
+                        <td>협력업체(대리점)</td>
+                        <td>안전한 근로환경, 협력사 고충처리</td>
+                        <td>동반성장을 위한 협력사(대리점) 간담회 실시, 신문고 운영</td>
+                    </tr>
+                    <tr>
+                        <td>고객</td>
+                        <td>제품의 품질</td>
+                        <td>제품테스트 절차 강화</td>
+                    </tr>
+                    <tr>
+                        <td>지역사회/NGO</td>
+                        <td>준법경영, 기업의 사회적 책임이행</td>
+                        <td>윤리경영 선언, 사회적 책임 활동 강화</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+       <section id="gri3_topics">
+    <h1>GRI3 중요주제에 대한 보고</h1>
+    <table style="width: 100%; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 30%;">
+            <col style="width: 70%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color: #003591;">3-1. 중요 주제 결정 프로세스</td>
+                <td>(주)노루오토코팅은 당사와 관련된 주요 이해관계자를 임직원, 고객, 협력사 등 3개의 그룹으로 분류하여 각 그룹이 중요하게 생각하는 핵심주제 및 관심사를 선정하기 위한 중대성 평가를 실시하였습니다.</td>
+            </tr>
+            <tr>
+                <td style="color: #003591;">3-2. 중요 주제 목록</td>
+                <td>중대성 평가를 통해 선정된 각 이해관계자 그룹이 중요하게 생각하는 핵심주제 및 관심사를 키워드로 분류하여 대응 전략 및 실천 방안을 수립하였습니다.</td>
+            </tr>
+            <tr>
+                <td style="color: #003591;">3-3. 중요 주제 관리</td>
+                <td>(주)노루오토코팅은 중대성 평가로 선정된 핵심주제를 키워드별로 분류하고, 중장기 전략과 목표를 수립하여 주요 활동을 관리 및 모니터링하고 있습니다.</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+<section id="gri201">
+    <h1>GRI 201 경제성과</h1>
+
+    <h2>201-1 직접적 경제가치 발생과 분배</h2>
+    <h3>2023년 매출액: 379,258백만원</h3>
+    
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <caption>경제가치 창출 및 분배 (단위: 백만원)</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>경제가치창출 > 매출액</td>
+                <td>171,716</td>
+                <td>315,140</td>
+            </tr>
+            <tr>
+                <td>분배 > 원재료/서비스구입</td>
+                <td>128,620</td>
+                <td>236,637</td>
+            </tr>
+            <tr>
+                <td>분배 > 임직원 급여 및 복리후생</td>
+                <td>31,945</td>
+                <td>50,510</td>
+            </tr>
+            <tr>
+                <td>분배 > 차입금 이자 지급</td>
+                <td>1,109</td>
+                <td>1,325</td>
+            </tr>
+            <tr>
+                <td>분배 > 세금 (법인세)</td>
+                <td>2,039</td>
+                <td>6,193</td>
+            </tr>
+            <tr>
+                <td>분배 > 지역사회 투자 및 기부</td>
+                <td>15</td>
+                <td>30</td>
+            </tr>
+            <tr>
+                <td>경제가치 잔여분 (경제가치창출 - 분배)</td>
+                <td>1,097</td>
+                <td>4,353</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>201-2 기후변화에 따른 영향 및 기타 위험과 기회</h2>
+    <p>유럽, 미국과 같은 대한민국의 주요 자동차 수출국의 기후변화 및 ESG 경영 관련 법적 요구사항이 증가하고 있으며<br>
+       이에 따라 당사 또한 이에 발맞추어 대응을 위해 힘쓰고 있습니다. 당사 연구개발/설비투자와 같은 ESG 관련 영역의 COST 발생에도 <br>
+       불구하고 자동차 업체의 ESG 요구사항을 필연적, 필수적으로 이행하는 HIGH RISK가 있는 상황이나 동시에 친환경 제품으로 마이그레이션의 전환을 통해 <br>
+       국내외 시장을 선도할 수 있는 다양한 환경 솔루션을 제공, M/S 확대를 하기 위한 기회로 이를 이용하기 위해 노력하고 있습니다.</p>
+
+    <h2>201-3 확정급여형 연금제도 채무 충당</h2>
+    <p>확정급여형 연금제도 채무 충당을 100% 적립하여 운영하고 있으며, 매월 1회 퇴직급여 추정계산을 통해 부채로 계산하고 있습니다.</p>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>퇴직급여부채 내역</th>
+                <th>2023년 (단위: 천원)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>확정급여채무원 현재가치</td>
+                <td>23,928,431</td>
+            </tr>
+            <tr>
+                <td>사외적립자산의 공정가치</td>
+                <td>-28,764,428</td>
+            </tr>
+            <tr>
+                <td>순확정급여부채(자산)</td>
+                <td>-4,841,566</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>당사는 확정급여부채를 초과하는 사외적립자산을 비유통자산內 순확정급여자산으로 표기하였습니다.</p>
+
+    <h2>201-4 정부 재정지원</h2>
+    <p>세액공제 현황</p>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2021년 (단위: 천원)</th>
+                <th>2022년 (단위: 천원)</th>
+                <th>2023년 (단위: 천원)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>세액공제</td>
+                <td>32,175</td>
+                <td>288,399</td>
+                <td>922,275</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<section id="gri202">
+    <h1>GRI 202 시장지위</h1>
+    <h2>202 시장지위 관리</h2>
+    <p>노루오토코팅은 ESG 경영을 통해 기업의 지속가능성을 높이고 장기적인 기업 가치 제고를 추구합니다.<br>
+    이를 통해 투자자들의 신뢰를 얻고, 시장에서의 경쟁력을 강화할 수 있을 것으로 기대됩니다.</p>
+</section>
+
+<section id="gri203">
+    <h1>GRI 203 간접 경제 효과</h1>
+    <h2>203-2 간접 경제효과 관리</h2>
+    <h3>지역 사회 공헌 활동</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 15%;">
+            <col style="width: 30%;">
+            <col style="width: 30%;">
+            <col style="width: 35%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>프로세스</th>
+                <th>목표</th>
+                <th>활동</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>긍정적 영향 강화</td>
+                <td>지역사회 사회공헌</td>
+                <td>직간접적 후원 및 지역 사회 홍보</td>
+                <td>화성시 환경재단(비용수지)과 협약을 통한 환경정화 활동 진행</td>
+            </tr>
+            <tr>
+                <td>부정적 영향 방지</td>
+                <td>지역사회 의견수렴 및 협의채널</td>
+                <td>지역사회 발전도모와 취약계층 지원</td>
+                <td>장학금 500만원 기부 (21년, '23년) - 불우이웃 및 취약계층 지원 활동</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri205">
+    <h1>GRI 205 반부패 정책 및 절차</h1>
+    <h2>205-2 반부패 정책 및 절차에 관한 공지와 훈련</h2>
+    <p>매년 그룹 윤리경영실 주관하에 신규입사자 및 승진자를 대상으로 윤리규범 교육을 진행하고 있습니다.</p>
+    
+    <h3>윤리경영(반부패) 위험 평가 결과</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 30%;">
+            <col style="width: 70%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>교육과정명</td>
+                <td>청렴 윤리경영, 윤리규범 교육</td>
+            </tr>
+            <tr>
+                <td>주요 내용</td>
+                <td>윤리경영의 개념과 핵심을 알고 기업문화에 적용시킴으로써 기업가치를 제고할 수 있다.<br>
+                    부패의 종류에 대해 알고, 이러한 행동이 조직에 해악을 끼칠 수 있음을 배울 수 있다.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>대상자 : 신규입사자 및 승진자</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>신입사원</th>
+                <th>승진자</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>대상</td>
+                <td>4</td>
+                <td>29</td>
+            </tr>
+            <tr>
+                <td>수료인원</td>
+                <td>4</td>
+                <td>29</td>
+            </tr>
+            <tr>
+                <td>수료율</td>
+                <td>100%</td>
+                <td>93%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>교육 진행방법</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2023년</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>교육 진행방법:</td>
+                <td>외부전문가 초빙 및 윤리경영실 윤리담당자 진행</td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+
+
+<section id="gri206">
+    <h1>GRI 206 경쟁저해행위</h1>
+    <p>경쟁저해행위는 불합리한 경제 활동에 있어 가장 큰 걸림돌로, 피해를 보는 기업 또는 시장에서 생존에 어려움을 겪을 수 있으며 <br>
+        소비자들도 가격 인상과 제한된 선택으로 인해 피해를 받을 수 있습니다. 노루오토코팅에서는 사전 활동정지와 사전 경영 윤리 확보하기 위한<br> 활동이 경쟁저해행위로
+         사전 파내부 정책정의와 역할을 다하고자 하는 것을 예방하기 위해 법규 및 규제 준수를 철저하게 다방면으로 노력하고 있습니다.</p>
+
+    <h3>불공정거래 정책</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 20%;">
+            <col style="width: 80%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>서문</td>
+                <td>(주)노루오토코팅은 모든 경영 활동에서 공정하고 투명한 거래를 추구하며, <br>
+                    공정경쟁을 잘 지키기 위해 최선을 다하고 있습니다. 또한 공정거래 원칙을 준수하고, <br>
+                    협력업체, 고객을 포함한 모든 이해관계자와의 거래에서 공정성과 윤리성을 유지하기 위한 우리의 의지를 천명합니다.</td>
+            </tr>
+            <tr>
+                <td>1. 불공정거래 방지 원칙 및 방법</td>
+                <td>
+                    <ul>
+                        <li>1.1 법규 준수<br>(주)노루오토코팅은 모든 경영 활동에서 관련 법규와 규정을 엄격히 준수하며, 법적 및 윤리적 기준을 충족합니다.</li>
+                        <li>1.2 공정 경쟁<br>모든 경영 활동은 공정경쟁을 지지하며, 부당한 이익을 얻기 위한 행위를 하지 않습니다. 또한 거래에서 공정성을 유지하고 시장 질서를 준수합니다.</li>
+                        <li>1.3 투명성 확보<br>거래 과정에서 투명성을 유지하며, 이해관계자에게 필요한 정보를 적시에 제공합니다. 모든 거래 과정을 공정하게 하고, 이를 적절히 보관합니다.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>2. 임직원 행동규범</td>
+                <td>
+                    <ul>
+                        <li>2.1 이해 상충 방지<br>임직원은 개인과 회사의 이익이 상충되지 않도록 하며, 이해 상충이 발생할 경우 이를 회사에 보고하고 적절히 처리합니다.</li>
+                        <li>2.2 부패 방지<br>모든 형태의 부패 및 부정 수수를 금지하며, 이를 위반할 경우 엄중히 처벌합니다.</li>
+                        <li>2.3 내부 고발자 보호<br>임직원은 부정행위를 인지한 경우 내부 고발 시스템을 통해 이를 보고할 수 있으며, 내부 고발자를 보호합니다.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>3. 협력사와 공정거래</td>
+                <td>
+                    <ul>
+                        <li>3.1 공정한 계약 체결<br>협력사의 작업은 공정하고 투명한 절차를 통해 서면화하며, 협력사의 권익을 보호합니다.</li>
+                        <li>3.2 협력사 평가 및 관리<br>협력사를 정기적으로 평가하고, 공정 거래 절차를 준수하도록 관리합니다.</li>
+                        <li>3.3 상호 발전 도모<br>협력사의 상생 발전을 위해 협력사와의 역량 강화를 지원하고, 공정하고 투명한 거래 관계를 유지합니다.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>4. 고객과의 신뢰구축</td>
+                <td>
+                    <ul>
+                        <li>4.1 공정한 거래 조건<br>고객과의 거래에서 공정한 조건을 제시하며, 공정하지 않은 조건을 강요하지 않습니다.</li>
+                        <li>4.2 적정한 정보 제공<br>제품 및 서비스에 대한 정확하고 신뢰할 수 있는 정보를 제공하며, 고객을 오도하거나 기만하는 행위를 하지 않습니다.</li>
+                        <li>4.3 고객 권익 보호<br>고객의 권리는 신속하고 공정하게 처리하며, 고객의 권익을 보호하기 위해 최선을 다합니다.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>5. 불공정거래 방지 시스템</td>
+                <td>
+                    <ul>
+                        <li>5.1 교육 및 훈련<br>모든 임직원을 대상으로 정기적인 불공정거래 방지 교육과 훈련을 실시하여, 불공정거래 방지 의식을 고취합니다.</li>
+                        <li>5.2 내부 통제 및 감사<br>내부 통제 시스템을 강화하여, 불공정 거래 행위를 사전에 예방하고, 정기적인 내부 감사를 통해 위반 행위를 감시합니다.</li>
+                        <li>5.3 신고 및 처리 절차<br>불공정 거래 행위를 신고할 수 있는 내부 시스템을 마련하고, 신고된 사항에 대해 신속하고 공정하게 처리합니다.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>6. 결론</td>
+                <td>(주)노루오토코팅은 불공정거래 방지 정책을 통해 모든 이해관계자와의 거래에서 공정성과 투명성을 유지하고, 신뢰받는 기업이 되기 위해 최선을 다하고 있습니다. 우리는 이 정책을 지속적으로 준수하며, 공정하고 윤리적인 경영 문화를 확립해 나갈 것입니다.</td>
+            </tr>
+        </tbody>
+    </table>
+
+<h3>간접적 경제영향 관리를 위한 활동</h3>
+<table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+    <colgroup>
+        <col style="width: 10%;">
+        <col style="width: 30%;">
+        <col style="width: 30%;">
+        <col style="width: 30%;">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>구분</th>
+            <th>프로세스</th>
+            <th>목표</th>
+            <th>결과</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="4">부적적<br> 영향 방지</td>
+            <td>윤리경영 지침 내 공정경쟁행위에 관한 규정</td>
+            <td>내부 통제 관리를 통한 자율적인<br> 공정경쟁 저해위험 방지</td>
+            <td>투명 업계 유리한 조건을 지속적으로 유지하여<br> 거래의 신뢰성 향상</td>
+        </tr>
+        <tr>
+           
+            <td>준법지원인 지정 및 정점</td>
+            <td>경쟁저해행위 관련 법적 위험 <br>사전 예방 및 규제 준수</td>
+            <td>경쟁저해행위 관련 법적 위험 <br>사전 예방 및 규제 준수</td>
+        </tr>
+        <tr>
+            
+            <td>내부거래 위원회 설치 및 운영</td>
+            <td>특수거래인과의 내부거래 중 발생하는<br> 경쟁저해위험 방지</td>
+            <td>특수거래인과의 내부거래 중 발생하는<br> 경쟁저해위험 방지</td>
+        </tr>
+        <tr>
+            
+            <td>협력사 신뢰 및 운영</td>
+            <td>비지니스 및 거래처 관리 과정에서의<br> 경쟁저해위험 예방</td>
+            <td>비지니스 및 거래처 관리 과정에서의<br> 경쟁저해위험 예방</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>경쟁저해행위 관련 위험 평가 및 완화 조치</h3>
+<table style="width: 100%; border-collapse: collapse;">
+    <colgroup>
+        <col style="width: 10%;">
+        <col style="width: 30%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 30%;">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>구분</th>
+            <th>위험 평가</th>
+            <th>가능성<br> (빈도)</th>
+            <th>중대성</th>
+            <th>위험성</th>
+            <th>완화조치</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>반독점</td>
+            <td>기업인수 및 합병(M&A)과 관련하여 독점 강화</td>
+            <td>낮음</td>
+            <td>높음</td>
+            <td>보통</td>
+            <td>의사 결정 단계 전 법률 자문 및<br> M&A 절차 수립</td>
+        </tr>
+        <tr>
+            <td>반경쟁</td>
+            <td>자체적 지원을 가로지르는 지역에서 다른 기업의 이익 침해</td>
+            <td>보통</td>
+            <td>높음</td>
+            <td>보통</td>
+            <td>관련 규정 준수 및 거래 공정성 강화</td>
+        </tr>
+    </tbody>
+</table>
+</section>
+
+<section id="gri301">
+    <h1>GRI 301 원재료</h1>
+
+    <h2>301-1 원재료의 중량 또는 부피</h2>
+    <h3>친환경 구매정책 파일 첨부</h3>
+    <table class="worker-info-table" style="margin-bottom: 10px; width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021</th>
+                <th>2022</th>
+                <th>2023</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>총구매액</td>
+                <td>백만원</td>
+                <td>167,479</td>
+                <td>202,938</td>
+                <td>206,352</td>
+            </tr>
+            <tr>
+                <td>친환경 제품 구매액<sup>1</sup></td>
+                <td>백만원</td>
+                <td>4,946</td>
+                <td>4,713</td>
+                <td>2,822</td>
+            </tr>
+            <tr>
+                <td>친환경 구매 비중</td>
+                <td>%</td>
+                <td>2.95</td>
+                <td>2.32</td>
+                <td>1.37</td>
+            </tr>
+            <tr>
+                <td>공식 인증 친환경 제품</td>
+                <td>백만원</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>환경마크 인증 제품</td>
+                <td>백만원</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>우수재활용제품</td>
+                <td>백만원</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>저탄소제품</td>
+                <td>백만원</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>기타 친환경 제품 구매액<sup>2</sup></td>
+                <td>백만원</td>
+                <td>4,946</td>
+                <td>4,713</td>
+                <td>2,822</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="font-size: 15px;margin-bottom: 0; color: #495057;">1. 친환경 제품 구매액은 공식 인증 친환경 제품 구매액에 기타 친환경 제품 구매액을 더한 값입니다.</p>
+    <p style="font-size: 15px;margin-bottom: 1rem; color: #495057;">2. 노루오토코팅에서 자체 정의한 친환경 제품 구매 인증체계와 기준에 해당되는 제품입니다.</p>
+    <h2>301-2 재생 원재료 사용</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021</th>
+                <th>2022</th>
+                <th>2023</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>총구매액</td>
+                <td>백만원</td>
+                <td>167,479</td>
+                <td>202,938</td>
+                <td>206,352</td>
+            </tr>
+            <tr>
+                <td>재생 원재료 구매액<sup>1</sup></td>
+                <td>백만원</td>
+                <td>240</td>
+                <td>283</td>
+                <td>328</td>
+            </tr>
+            <tr>
+                <td>재생 원재료 비중</td>
+                <td>%</td>
+                <td>0.14</td>
+                <td>0.14</td>
+                <td>0.16</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>301-3 제품 및 포장 재료의 재생</h2>
+    <p>노루오토코팅의 일부 제품은 고객 출하 시 회수가 가능한 용기를 사용하고 있습니다.</p>
+
+    <h3>※ 본쟁 광물 구매 정책</h3>
+    <p>노루오토코팅은 비윤리적으로 취득한 원자재의 사용을 원천 차단하기 위해 본쟁 광물 구매 정책을 준수합니다. <br>협력업체는 이를 준수하여 광물 조달 과정 전반에 걸친 정책 수립, 팀 구축, 실사 등의 활동을 수행합니다.</p>
+</section>
+<section id="gri302">
+    <h1>GRI 302 에너지</h1>
+
+    <h2>302 에너지 관리</h2>
+    <p>당사는 2045년 주요 고객사들의 탄소 중립 선언에 대응하고, 미래 후손들에게 온전히 물려주기 위해 당사 또한 온실가스를 2030년까지 10% 감축하고, 2040년까지 70% 감축, 2045년까지 100% 탄소중립을 목표로 하고 있으며 이를 위해 에너지 사용량에 따른 온실가스 배출량을 산정하여 관리하고 있으며, 에너지 및 온실가스 절감을 위해 자체적인 에너지 TFT 운영, 실적자료 관리 등을 실시하고 있습니다.</p>
+
+    <p>간접적 경제영향 관리를 위한 활동<br>
+    NAC는 2024년 1월부터 태양광 발전설비를 가동하고 있습니다.</p>
+
+    <h3>환경경영방침</h3>
+    <div style="border: 1px solid #ccc;
+    padding: 50px 50px 25px 50px;
+    margin-bottom: 20px;
+    margin-top: 20px;">
+        <h4 style="text-align: center;">환경 매뉴얼</h4>
+        <p>1. 환경 방침</p>
+        <p>(주)노루오토코팅은 도료의 설계, 생산, 판매, 서비스, 폐기에 이르는 전 과정에서 환경에 미치는 영향을 최소화 되도록 노력하며 "환경보전" 및 ESG 경영이념을 실천하여 지구환경보전에 기여한다.</p>
+        <ol>
+            <li>회사업무와 관련된 환경규정을 준수할 의무를 다 한다.</li>
+            <li>업무의 추진에 있어서 도료생산에 환경영향을 고려하여 발전도록 한다.</li>
+            <li>환경영향 저감 및 환경개선기회를 확인한다.</li>
+            <li>지속적 에너지절약활동을 통한 환경영향을 최소화한다.</li>
+            <li>환경경영방침을 사내외에 공표하고 환경과 관련된 내용을 전 임직원에게 알린다.</li>
+        </ol>
+        <p>상기방침이 성실히 이행될 수 있도록 모든 인력, 물적자원을 적극 지원한다.</p>
+        <p style="text-align: right;">2023. 04. 01<br>주식회사 노루오토코팅<br>대표이사 김종우</p>
+    </div>
+
+    <h2>302-1. 조직 내 에너지 소비</h2>
+    <h3>- 에너지 소비</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th rowspan="2">구분</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th colspan="2">2023년</th>
+            </tr>
+            <tr>
+                <th>목표</th>
+                <th>실적</th>
+                <th>목표</th>
+                <th>실적</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>전력사용량(MWh)</td>
+                <td>13,637</td>
+                <td>13,913</td>
+                <td>13,965</td>
+                <td>14,082</td>
+            </tr>
+            <tr>
+                <td>가스사용량(1,000Nm³)</td>
+                <td>912</td>
+                <td>951</td>
+                <td>964</td>
+                <td>1,086</td>
+            </tr>
+            <tr>
+                <td>지역난방(Gcal)</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>재생에너지 사용량(MWh)</td>
+                <td>0</td>
+                <td>0</td>
+                <td>100</td>
+                <td>141</td>
+            </tr>
+            <tr>
+                <td>합계(TJ)</td>
+                <td>123</td>
+                <td>128</td>
+                <td>100</td>
+                <td>141</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="font-size: 15px;position: relative;
+    top: -16px; margin-bottom: 0;color: #495057;">※ 2021~2022년 : 전력 및 가스사용량은 환경/안전 공장 합임.<br>
+       ※ 23년 목표대비 실적 상승은 병행으로 인한 설비 안정화 단계에 기인함</p>
+
+    <h2>302-2. 조직 밖에서의 에너지 소비</h2>
+    <p>당사는 도료를 제조하는 회사로 조직 밖에서의 에너지 소비는 해당사항이 없습니다.</p>
+
+    <h2>302-3. 에너지 집약도</h2>
+    <h3>- 에너지 집약도 (화성공장 기준)</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>전력사용량(MWh)</td>
+                <td>11,477</td>
+                <td>11,817</td>
+                <td>13,102</td>
+            </tr>
+            <tr>
+                <td>전체 탄소배출량(tCO2)</td>
+                <td>7,388</td>
+                <td>7,633</td>
+                <td>8,550</td>
+            </tr>
+            <tr>
+                <td>Scope 1(직접 배출량)</td>
+                <td>1,940</td>
+                <td>2,023</td>
+                <td>2,330</td>
+            </tr>
+            <tr>
+                <td>Scope 2(간접 배출량)</td>
+                <td>5,449</td>
+                <td>5,610</td>
+                <td>6,220</td>
+            </tr>
+            <tr>
+                <td>매출액(백만원)</td>
+                <td>130,891</td>
+                <td>171,716</td>
+                <td>315,140</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>- 온실가스 배출량 (전기, 가스만 해당)</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        
+            <thead>
+                <tr>
+                    <th rowspan="2">구분</th>
+                    <th rowspan="2">2021년</th>
+                    <th rowspan="2">2022년</th>
+                    <th colspan="2">2023년</th>
+                </tr>
+                <tr>
+                    <th>목표</th>
+                    <th>실적</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>전체 탄소배출량(tCO2)</td>
+                    <td>7,388</td>
+                    <td>7,633</td>
+                    <td>8,339</td>
+                    <td>8,550</td>
+                </tr>
+            </tbody>
+
+    </table>
+    <p style="font-size: 15px;position: relative;
+    top: -16px; margin-bottom: 0;color: #495057;">※ 23년 화성/천안 공장 통합에 따른 설비(분산기, 디졸버 등) 증가 등의 사유로 실적 미달</p>
+
+    <h2>302-4. 에너지 소비 감축</h2>
+    <p>노루오토코팅은 매년 전년 대비 에너지 사용량 및 온실가스(탄소)배출량<br> 2030년 10%감소를 목표로 감축방향을 실천하기위해 다양한 활동에 최선을 다할 것입니다.</p>
+    <h3>- 에너지 절감량</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>전력사용량(MWh)</td>
+                <td>393,814</td>
+                <td>405,518</td>
+                <td>461,127</td>
+            </tr>
+            <tr>
+                <td>가스사용량(1,000Nm<sup>3</sup>)</td>
+                <td>16,564</td>
+                <td>16,872</td>
+                <td>19,927</td>
+            </tr>
+            <tr>
+                <td>온실가스(탄소)배출량(tCO2)</td>
+                <td>225</td>
+                <td>229</td>
+                <td>245</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="font-size: 15px;position: relative;
+    top: -16px; margin-bottom: 0;color: #495057;">※ 자체 감절활동을 통한 에너지 절감량이 증가하고 있음</p>
+    <h3>- 에너지 절감(기후변화 및 탄소중립) 관련 중장기 목표</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>측정지표</th>
+                <th>2030년</th>
+                <th>2040년</th>
+                <th>2045년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>에너지 사용량 절감</td>
+                <td>온실가스 배출량 절감률</td>
+                <td>10%</td>
+                <td>75%</td>
+                <td>100%</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <h2>302-5. 제품 및 서비스의 에너지 요구량 감축</h2>
+    <p>당사는 에너지 감축 요구가 규제 대상이 아니나, 탄소 중립에 자발적 동참하여 2045년 탄소 중립을 목표로 활동하고 있습니다.</p>
+
+</section>
+
+<section id="gri303">
+    <h1>GRI 303 용수 및 폐수</h1>
+
+    <h2>303 용수 및 폐수 관리</h2>
+    <p>당사는 도료 생산을 통해 배출되는 폐수의 수질오염을 방지(자체 폐수처리장 운영)하고, 배출되는 오염물질을 적법한 기준대로 처리하여 환경법규 및 수생환경오염리스크를 최소화 합니다.</p>
+
+    <h2>303-1. 공유 자원으로서의 물과의 상호작용</h2>
+    <p>당사가 사용하는 모든 물은 상수도입니다.</p>
+
+    <h2>303-2. 물 사용 관련 영향의 관리</h2>
+    <p>당사는 도료를 제조하는 회사로 모든 물은 당사 내에 있는 폐수처리장을 거쳐 공단내에 있는 종합처리장으로 유입됩니다.</p>
+
+    <h2>303-3. 물 취수</h2>
+    <p>- 용수 취수량 총 25,200톤 (용수 사용량 20,060톤, 폐수 배출량 5,200톤)</p>
+    <table style="width: 100%; border-collapse: collapse;">
+        <caption>용수 사용량</caption>
+        <thead>
+            <tr>
+                <th rowspan="2">구분</th>
+                <th rowspan="2">단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th colspan="2">2023년</th>
+            </tr>
+            <tr>
+                <th>실적</th>
+                <th>실적</th>
+                <th>목표</th>
+                <th>실적</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>화성공장 (상수도)</td>
+                <td>톤</td>
+                <td>50,155</td>
+                <td>20,360</td>
+                <td>21,063</td>
+                <td>20,060</td>
+            </tr>
+            <tr>
+                <td>천안공장 (상수도)</td>
+                <td>톤</td>
+                <td>10,447</td>
+                <td>8,990</td>
+                <td>5,421</td>
+                <td>3,684</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>303-4. 물 방류</h2>
+    <p>- 2023년 폐수 배출량 5,200톤</p>
+    
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <caption> 용수 취수/사용량, 폐수 배출량</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2021년(단위: 톤)</th>
+                <th>2022년(단위: 톤)</th>
+                <th>2023년(단위: 톤)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>용수취수량(상수도)</td>
+                <td>57,332</td>
+                <td>60,087</td>
+                <td>63,113</td>
+            </tr>
+            <tr>
+                <td>용수사용량(상수도)</td>
+                <td>50,155</td>
+                <td>51,570</td>
+                <td>57,449</td>
+            </tr>
+            <tr>
+                <td>폐수 배출량</td>
+                <td>7,177</td>
+                <td>8,517</td>
+                <td>5,664</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>303-5. 물 소비</h2>
+    <p>노루오토코팅은 매년 작년 대비 용수사용량 5% 감소를 목표로 환경경영 방침을 실천하기 위해 다양한 활동에 최선을 다할 것입니다.</p>
+    <p>- 용수 사용량</p>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <caption>용수 절감량</caption>
+        <thead>
+            <tr>
+                <th rowspan="2">구분</th>
+                <th rowspan="2">단위</th>
+                <th rowspan="2">2021년</th>
+                <th rowspan="2">2022년</th>
+                <th colspan="2">2023년</th>
+            </tr>
+            <tr>
+
+                <th>목표</th>
+                <th>실적</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>화성공장 (상수도)</td>
+                <td>톤</td>
+                <td>50,155</td>
+                <td>20,360</td>
+                <td>21,063</td>
+                <td>20,060</td>
+            </tr>
+            <tr>
+                <td>천안공장 (상수도)</td>
+                <td>톤</td>
+                <td>10,447</td>
+                <td>8,990</td>
+                <td>5,421</td>
+                <td>3,684</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>- 용수 절감량</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <caption>용수 절감량</caption>
+        <thead>
+            <tr>
+                <th rowspan="2">구분</th>
+                <th rowspan="2">단위</th>
+                <th rowspan="2">2021년</th>
+                <th rowspan="2">2022년</th>
+                <th colspan="2">2023년</th>
+            </tr>
+            <tr>
+
+                <th>목표</th>
+                <th>실적</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>화성공장 (상수도)</td>
+                <td rowspan="2">톤</td>
+                <td rowspan="2" colspan="4">실적 없음</td>
+            </tr>
+            <tr>
+                <td>천안공장 (상수도)</td>
+
+            </tr>
+        </tbody>
+    </table>
+</section>
+<section id="gri304">
+    <h1>GRI 304 생물다양성</h1>
+
+    <h2>304-1 생물다양성 관리</h2>
+    <p>당사는 지속가능한 발전을 위한 생물다양성 보호의 필요성에 공감하여 환경경영 정책 내 생물다양성 정책을 마련을 준비하고 있습니다.</p>
+
+    <h2>304-2 생물다양성 관리를 위한 활동</h2>
+    
+    <table style="width: 100%; border-collapse: collapse;">
+        <caption>생물다양성 관리를 위한 활동</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>프로세스</th>
+                <th>목표</th>
+                <th>결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="4">긍정적 영향 강화</td>
+                <td>친환경 설비투자</td>
+                <td>비지니스 과정에서 발생하는 각종 오염을 예방하여 환경 체계 보존</td>
+                <td>자체 폐수처리장 운영으로 오염물질 외부배출 최소화<br>1. 배출기준: BOD120, TOC130<br>2. NAC배출농도: BOD50, TOC40</td>
+            </tr>
+            <tr>
+                <td>환경 관련 사회공헌</td>
+                <td>지역사회 생물종 다양성 보호 및 환경 정화</td>
+                <td>1. 회사 옆 장안근린공원 정화활동 실시 (상하반기)<br>2. 비봉습지와 협약하여 생물 보호 예정 (2024년)</td>
+            </tr>
+            <tr>
+                <td>ESG 전담조직 구축</td>
+                <td>ESG 이슈 관리 감독 및 성과 검토, 재무/비재무적 영향과 위험 식별 및 대응</td>
+                <td>ESG 전담인력 통해 ESG 평가 체계 수립 및 진행, 환경 관련 핵심 이슈<br>(에너지/쓰레기량 관리 및 효율 증대) 관련 리스크 검토 및 관리 계획 수립</td>
+            </tr>
+            <tr>
+                <td>직원 환경경영 교육</td>
+                <td>지속 가능한 개발에 대한 인식 개선 및 환경 이슈 발생 예방</td>
+                <td>매년 1회, ISO 14001 심사원으로부터 당사자 교육 실시<br>(2023년 기준 총 1개 과정 실시)</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<section id="gri305">
+    <h1>GRI 305 배출</h1>
+
+    <h2>305 배출관리</h2>
+    <p>당사의 기후변화 대응 정책은 우리의 환경·에너지 절감 정책과 맞닿아 있습니다. "친환경 페인트 생산"이라는 원초적인 비전 아래 순환경제 지향하고 탄소배출 저감을 위한 에너지 절감 중심으로 변화하고 있습니다. 또한 투자 의사결정 과정에서 기후변화 영향을 검토하여 기후변화 관련 주요 리스크를 개선해 나가겠습니다. 이에따라 유해물질 컴플라이언스를 준수하겠습니다.</p>
+
+    <h2>305-1 직접 온실가스 배출량 (Scope1)</h2>
+    <p>- 당사 국내 사업장의 2023년 직접 온실가스 배출량은 2,329tCO2eq 입니다.</p>
+    
+    <table style="width: 100%; border-collapse: collapse;">
+        <caption>직접 온실가스 배출량 (SCOPE1)</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>직접 온실가스 배출량 (Scope1)</td>
+                <td>tCO2eq</td>
+                <td>1,940</td>
+                <td>2,023</td>
+                <td>2,330</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>305-2 간접 온실가스 배출량 (Scope2)</h2>
+    <p>- 당사 국내 사업장의 2023년 간접 온실가스 배출량은 6,219tCO2eq 입니다.</p>
+    
+    <table style="width: 100%; border-collapse: collapse;">
+        <caption>간접 온실가스 배출량 (SCOPE2)</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>간접 온실가스 배출량 (Scope2)</td>
+                <td>tCO2eq</td>
+                <td>5,449</td>
+                <td>5,610</td>
+                <td>6,220</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>305-5 온실가스 배출량 감축</h2>
+    <p>- 당사는 공정/UT설비 개선, 에너지 TFT활동 등을 통해 23년 255tCO2eq를 절감하였습니다.</p>
+   
+    <table style="width: 100%; border-collapse: collapse;">
+        <caption>에너지 및 온실가스 절감량</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>전기에너지 절감량</td>
+                <td>tCO2eq</td>
+                <td>189</td>
+                <td>192.4</td>
+                <td>218.8</td>
+            </tr>
+            <tr>
+                <td>가스에너지 절감량</td>
+                <td>tCO2eq</td>
+                <td>35.4</td>
+                <td>36.2</td>
+                <td>36.7</td>
+            </tr>
+            <tr>
+                <td>합계</td>
+                <td>tCO2eq</td>
+                <td>224.6</td>
+                <td>228.6</td>
+                <td>255.2</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>305-7 질소산화물(NOx) 및 기타 중요한 대기 배출량</h2>
+    <p>당사는 대기배출시설별 NOx, 먼지 배출량을 주요 지표로 관리하고 있으며, 대기오염물질 평균 배출농도를 법적허용기준 대비 64% 이하로 유지하고 있습니다.</p>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <caption>대기오염물질 배출량</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>배출허용기준</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>NOX</td>
+                <td>ppm</td>
+                <td>60</td>
+                <td>2.6</td>
+                <td>2.0</td>
+                <td>2.1</td>
+            </tr>
+            <tr>
+                <td>먼지</td>
+                <td>mg/Sm3</td>
+                <td>30</td>
+                <td>0.9</td>
+                <td>0.6</td>
+                <td>0.7</td>
+            </tr>
+            <tr>
+                <td>SOX</td>
+                <td>mg/Sm3</td>
+                <td>200</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri306">
+    <h1>GRI 306 폐기물</h1>
+
+    <h2>306 폐기물 관리</h2>
+    <p>당사는 일반폐기물, 지정폐기물, 폐수가 발생되고 있습니다. 전문처리업체를 통해 일반폐기물 및 지정폐기물을 처리하고 있으며, 폐수는 자체 폐수처리장을 운영하여 기준치 이내 외부 배출을 하고 있습니다. 또한 폐기물 재활용, 분리 수거 등 폐기물 절감 활동을 시행하고 있습니다.</p>
+
+    <h2>306-1 폐기물 생산 및 폐기물 관련 주요 영향</h2>
+    <p>당사는 올바로 시스템을 통해 폐기물의 전 과정을 모니터링하고 있으며, 목표관리에 따른 폐기물 발생량 감소를 위해 노력하고 있습니다.</p>
+
+    <h2>306-3 폐기물 발생</h2>
+   
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <caption>폐기물 발생량(국내사업장)</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>일반폐기물</td>
+                <td rowspan="3">톤</td>
+                <td>78</td>
+                <td>98</td>
+                <td>106</td>
+            </tr>
+            <tr>
+                <td>지정폐기물</td>
+                  
+                <td>883</td>
+                <td>919</td>
+                <td>1,613</td>
+            </tr>
+            <tr>
+                <td>폐수발생</td>
+                
+                <td>7,207</td>
+                <td>8,305</td>
+                <td>5,774</td>
+            </tr>
+            <tr>
+                <td colspan="2">합계</td>
+                
+                <td>8,168</td>
+                <td>9,322</td>
+                <td>7,493</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>306-4 재활용 또는 재사용된 폐기물</h2>
+    <p>당사는 공정 중 발생한 폐유기용제를 재생하여 세척용제 등으로 사용하고 있습니다.</p>
+ 
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <caption>폐용재 재생량</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>MIBK</td>
+                <td rowspan="3">톤</td>
+                <td>316</td>
+                <td>387</td>
+                <td>210</td>
+            </tr>
+            <tr>
+                <td>폐용제</td>
+                <td>0</td>
+                <td>0</td>
+                <td>476</td>
+            </tr>
+            <tr>
+                <td>합계</td>
+                <td>316</td>
+                <td>387</td>
+                <td>686</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>306-5 재활용/재사용 없이 폐기된 폐기물</h2>
+   
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <caption>폐기물 발생량(국내사업장)</caption>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>일반폐기물</td>
+                <td rowspan="3">톤</td>
+                <td>78</td>
+                <td>98</td>
+                <td>106</td>
+            </tr>
+            <tr>
+                <td>지정폐기물</td>
+                
+                <td>883</td>
+                <td>919</td>
+                <td>1,613</td>
+            </tr>
+            <tr>
+                <td>폐수발생</td>
+                
+                <td>7,207</td>
+                <td>8,305</td>
+                <td>5,774</td>
+            </tr>
+            <tr>
+                <td colspan="2">합계</td>
+                
+                <td>8,168</td>
+                <td>9,322</td>
+                <td>7,493</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri308">
+    <h1>GRI 308 공급업체 환경평가</h1>
+    <h2>공급업체 환경평가 관리</h2>
+    <p>(주)노루오토코팅은 주기적인 협력사 평가를 통해 신규 및 기존 등록, 협력사에 대한 품질, 납기, 안전보건,<br>
+         환경경영 등에 대한 관리기준을 실시하여 공급망 ESG 경영수준을 높이고자 합니다.<br>
+   이에 전체 대상 중 249개 협력사를 집중 관리 대상 업체 35개(14%)를 선정하였으며, 평가 결과 ESG 경영 수준이 미흡한 <br>공급업체에 대해서는 지속적으로 
+   ESG 교육 협력 및 순환 평가를 진행하여 협력사 ESG 수준을 실질적으로 제고할 수 있는 방안을 도출하는 방향으로<br> 공급망 지속가능 관리 이슈를 검토할 계획입니다.
+공급망 정기 평가는 총 35개 집중관리 대상 업체에 한하여 진행하고 있습니다.</p>
+    
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>영역</th>
+                <th>평가요소</th>
+                <th>평가대상 수</th>
+                <th>집중관리 대상 수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>환경</td>
+                <td>환경경영시스템</td>
+                <td rowspan="4">249개사</td>
+                <td rowspan="4">35개사(15%)</td>
+            </tr>
+            <tr>
+                <td rowspan="3">사회</td>
+                <td>안전보건</td>
+            </tr>
+            <tr><td>노동</td></tr>
+            <tr><td>품질</td></tr>
+        </tbody>
+    </table>
+    <p style="font-size: 15px;position: relative;
+    top: -16px; margin-bottom: 0;color: #495057;">※ 고객 1차사, 수입/구매품, 외주생산 업체는 평가 대상 제외</p>
+    <ol>
+        <li>1) 환경경영시스템: 환경전략, 환경경영, 환경성과, 환경관리 등</li>
+        <li>2) 안전보건: 안전관리자 선임, 안전건강영향평가 및 목표, 안전보건 조직 운영, 안전보건관리규정, 현장별 위험성평가, <br>
+            대표이사 안전활동, 안전 작업절차, 위험 물질 및 설비 관리 체계, 안전보건 교육, 비상사태 대응, 현장근로자 의견수렴 채널, <br>
+            개인보호구 지급, 안전보건경영시스템 인증, 안전보건투자활동 등</li>
+        <li>3) 노동: 근로계약 법적기준 준수, 근로기준법 준수, 근로자 고용환경, 노동조합 및 노사협의회 운영, 노동인권, 취약계층 고용, 교육 관리 등</li>
+        <li>4) 품질: 지속가능 공급관리 등</li>
+    </ol>
+
+    <h2>308-2 공급망의 부정적 환경 영향 및 이에 대한 조치</h2>
+    <p>(주)노루오토코팅은 총 35개 대상 업체 중 33개 업체에 대하여 공급망 ESG평가를 완료하였습니다.<br>
+         이 중 중대한 환경 악영향이 발생하였거나, 환경 요인 관리를 강화해야 하는 협력사는 발견되지 않았습니다.</p>
+    
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>대상 업체 수</th>
+                <th>평가 완료 수</th>
+                <th>평가 비율(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>35</td>
+                <td>33</td>
+                <td>94%</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<section id="gri401">
+    <h1>GRI 401 고용관리</h1>
+    
+    <h2>401-1 고용 관리</h2>
+    <p>(주)노루오토코팅은 기업문화와 인재상에 부합하는 맞춤형 인재를 선발하고 다양성이 조화롭게 융합된 문화를 만들기 위해 성별, 연령, 학력, 전공, 지역에 제한을 두지 않는 공개채용을 원칙으로 하고 있습니다. 또한 여성, 장애인 등 다양한 인재들이 차별이나 불이익을 받지 않고 본인의 능력을 충분히 발휘할 수 있도록 지원하고 있습니다.</p>
+    <p>더불어 남성을 확대하고, 복리후생제도와 조직문화 개선을 통해 인권보장 및 근로자의 생활환경을 보장하여 근무만족도 향상과 이직률 감소에도 관심을 가지고 있습니다.</p>
+    
+    <h3>신규 채용</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>신규채용 전체</td>
+                <td>13</td>
+                <td>6</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>신규채용 남성</td>
+                <td>12</td>
+                <td>6</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>신규채용 여성</td>
+                <td>1</td>
+                <td>-</td>
+                <td>2</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>이직</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>이직 전체</td>
+                <td>6</td>
+                <td>20</td>
+                <td>22</td>
+            </tr>
+            <tr>
+                <td>이직 남성</td>
+                <td>6</td>
+                <td>20</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>이직 여성</td>
+                <td>-</td>
+                <td>-</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>401-2 고용상의 비차별</h2>
+    <p>남녀, 장애인 등 모든 근로자에 대하여 급여, 평가, 복리후생 제도 등 모든 제도에 대하여 차별하고 있지 않습니다.</p>
+
+    <h2>401-3 육아휴직</h2>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>육아휴직 전체</td>
+                <td>-</td>
+                <td>4</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>육아휴직 남성</td>
+                <td>-</td>
+                <td>3</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>육아휴직 여성</td>
+                <td>-</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>육아휴직 복귀 전체</td>
+                <td>1</td>
+                <td>-</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>육아휴직 복귀 남성</td>
+                <td>-</td>
+                <td>-</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>육아휴직 복귀 여성</td>
+                <td>1</td>
+                <td>-</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>401-4 고용(인권 포함) 관리를 위한 활동</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>프로세스</th>
+                <th>목표</th>
+                <th>결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>부정적 영향 방지</td>
+                <td>채용 과정 내 부정적 요소 최소화</td>
+                <td>산업계를 배제하지 않고 공정한 고용으로 노루오토코팅의 다양성 목표 달성</td>
+                <td>채용절차법에 근거하여 신체적 조건, 본인 연봉, 출신지역, 가족사항 등의 불필요한 정보 미수집</td>
+            </tr>
+            <tr>
+                <td>공정한 평가</td>
+                <td>면접관 교육</td>
+                <td>성별, 나이 등의 요소가 아닌 실력적 요소에 기반</td>
+                <td>면접에 참여하는 모든 면접관을 대상으로 가이드 자료 제공</td>
+            </tr>
+            <tr>
+                <td>임직원 만족도 향상</td>
+                <td>보상 및 복리후생 확대</td>
+                <td>충분한 보상 및 복지로 근로자의 생활 안정</td>
+                <td>물가상승률 이상의 연봉 인상 지속, 임직원 건강과 생활 안정을 위한 다양한 복지 제도개선 및 신설</td>
+            </tr>
+            <tr>
+                <td>근로환경 개선 활동</td>
+                <td>조직문화 개선</td>
+                <td>안정적인 근무 환경 조성을 통한 업무 성과의 균형 유지</td>
+                <td>선택적 근무시간제를 도입하여 업무 특성 및 근로자의 생활 패턴에 맞는 유연한 출퇴근 장려</td>
+            </tr>
+            <tr>
+                <td>임직원 인권 보호</td>
+                <td>내외부 고충 해결</td>
+                <td>고충 신고 및 제보 접수 건, 100% 처리</td>
+                <td>2023년 기준 총 12건 접수, 12건 처리</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>고용(인권 포함) 고충 해결 채널 운영 실적</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>고충처리</td>
+                <td>건</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>처리 건수</td>
+                <td>건</td>
+                <td>0</td>
+                <td>0</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>처리비율</td>
+                <td>%</td>
+                <td>0</td>
+                <td>0</td>
+                <td>100</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<section id="gri402">
+    <h1>GRI 402 노사관계</h1>
+    
+    <h2>노사관계 관리</h2>
+    <p>노루오토코팅은 노사간 공생과 공존, 배려와 존중을 기본으로 하여 노사간 관계를 유지하고 있으며, 경영의 파트너라는 인식으로 노사문화를 구축해오고 있음. 이에 대한 예로 매분기 노사협의회는 물론이고 노사간담회 및 워크샵을 진행하고 있습니다.</p>
+
+    <h3>노조가입 현황</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>노동조합가입비율</td>
+                <td>%</td>
+                <td>97%</td>
+                <td>98%</td>
+                <td>99%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>노사협의회 운영현황</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 50%;">
+            <col style="width: 50%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>운영현황</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>노사협의회</td>
+                <td>1회 / 분기</td>
+            </tr>
+            <tr>
+                <td>임금협상</td>
+                <td>1회 / 년</td>
+            </tr>
+            <tr>
+                <td>단체협약</td>
+                <td>1회 / 2년</td>
+            </tr>
+            <tr>
+                <td>노사간담회/워크샵</td>
+                <td>수시</td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="font-size: 15px;position: relative;
+    top: -16px; margin-bottom: 0;color: #495057;"><단체협약 채결식> 이미지 여기에 들어와야함 !</p>
+</section>
+<section id="gri403">
+    <h1>GRI 403 산업안전보건</h1>
+
+    <h2>사업장 안전보건</h2>
+    <p>산업안전보건에 대한 적절한 관리는 근로자의 부상과 질병 발생을 예방하여 생명과 건강을 보호하고 인간의 존엄성을 지키는 것을 목표로 합니다. 이를 위해서는 사업장 안전보건위원회를 운영하는 등 사고 예방과 대응을 위한 지속적인 노력이 필요합니다.</p>
+
+    <h3>403-1 업무상 보건 및 안전관리 체계</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 20%;">
+            <col style="width: 80%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>서문</td>
+                <td>(주)노루오토코팅은 모든 임직원과 이해관계자의 안전과 건강을 최우선으로 하여, 안전하고 건강한 작업 환경을 조성하기 위해 지속적으로 노력하고 있습니다. 안전보건경영시스템을 통해서 안전과 보건을 보호하기 위한 원칙과 실천 방안을 명확히 하겠습니다.</td>
+            </tr>
+            <tr>
+                <td>1. 기본 원칙 및 방향</td>
+                <td>
+                    <strong>1.1 안전과 보건 최우선</strong><br>
+                    모든 경영 활동에서 안전과 보건을 최우선으로 고려하며, 이를 위한 법적 요구 사항을 준수합니다.<br>
+                    <strong>1.2 예방 중심의 접근</strong><br>
+                    사고와 질병을 예방하기 위한 사전 조치를 철저히 시행하며, 위험 요소를 사전에 식별하고 관리합니다.<br>
+                    <strong>1.3 지속적 개선</strong><br>
+                    안전보건 경영 시스템을 지속적으로 평가하고 개선하여, 변화하는 환경과 새로운 위험 요소에 대응합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>2. 안전보건 관리</td>
+                <td>
+                    <strong>2.1 안전보건 시스템 구축</strong><br>
+                    체계적인 안전보건 관리 시스템을 구축하여, 모든 임직원의 안전과 건강을 보장합니다.<br>
+                    <strong>2.2 위험성 평가 및 관리</strong><br>
+                    작업 환경의 위험 요소를 실질적으로 평가하여, 이를 체계적으로 관리합니다.<br>
+                    <strong>2.3 사고 발생 시 대응</strong><br>
+                    사고 발생 시 신속하게 대응하고, 필요한 정보를 공유합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>3. 임직원 참여와 교육</td>
+                <td>
+                    <strong>3.1 임직원 참여 촉진</strong><br>
+                    모든 임직원이 안전보건 활동에 적극적으로 참여할 수 있도록 장려하며, 안전과 관련 의견을 수렴하여 개선에 반영합니다.<br>
+                    안전보건 위원회를 운영하여, 임직원과 경영진간의 소통을 강화하고 협력적인 안전보건 문화를 조성합니다.
+                    <strong>3.2 교육 및 훈련</strong><br>
+                    정기적인 안전보건 교육과 훈련을 통해 모든 임직원이 안전보건 의식을 높이고 관련 지식과 기술을 습득하도록 합니다.<br>
+                    신규 입사자와 작업 변경시 적절한 안전 보건 교육을 제공하여, 모든 임직원이 안전하게 작업할 수 있도록 합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>4. 건강 증진</td>
+                <td>
+                    <strong>4.1 건강한 작업 환경 조성</strong><br>
+                    작업 환경을 지속적으로 모니터링하고 개선하여, 임직원의 건강을 보호합니다.<br>
+                    유해 물질과 유해 환경으로부터 임직원을 보호하기 위한 적절한 조치를 취합니다.
+                    <strong>4.2 건강 증진 프로그램 운영</strong><br>
+                    임직원의 건강 증진을 위한 다양한 프로그램을 운영하며, 정기적인 건강 검진을 실시합니다.<br>
+                    정신 건강 지원 프로그램을 운영하여, 임직원의 정신적, 심리적 건강을 보호합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>5. 법규 준수 및 지속가능성</td>
+                <td>
+                    <strong>5.1 법규 준수</strong><br>
+                    모든 안전보건 관련 법규와 규정을 철저히 준수하며, 이를 초과하는 안전보건 기준을 지킵니다.<br>
+                    안전보건 관련 최신 법규와 기준을 지속적으로 모니터링하고, 필요한 경우 신속하게 대응합니다.
+                    <strong>5.2 지속 가능성</strong><br>
+                    지속가능한 안전보건 관리를 통해 장기적인 안전보건 목표를 달성하고, 사회책임을 다합니다.<br>
+                    환경 보호와 연계된 안전보건 활동을 전개하여, 지속 가능한 경영을 실현합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>6. 결론</td>
+                <td>(주)노루오토코팅은 안전보건 정책을 통해 모든 임직원과 이해관계자의 안전과 건강을 보호하고 증진하며,지속 가능항 성장을 추구 할 것입니다.<br>
+                우리는 안전하고 건강한 작업 환경을 조성하기 위해 최선을 다할 것이며, 이를통해<br>
+                모든 이해관계자의 신뢰를 받을 수 있도록 노력할 것입니다.
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <h2>산업안전보건 관리 활동</h2>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>프로세스</th>
+                <th>목표</th>
+                <th>결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2">긍정적 영향 평가</td>
+                <td>산업안전보건 교육</td>
+                <td>안전보건 목표를 안내하고 지속적인 예방과 개선 노력 캠페인을 통한 안전문화 정착</td>
+                <td>수급인 근로자 포함, 전 임직원 참여 집회 및 인명 훈련 실시, 
+                    안전보건관리책임자 안전보건교육 참여 및 사내 전파</td>
+            </tr>
+            <tr>
+                <td>작업환경 개선</td>
+                <td>근로환경 개선과 산업재해 감소를 위해 모든 시설 및 근로환경을 최적의 상태로 관리</td>
+                <td>
+                    작업장 순회점검을 통한 작업환경 관리(주 1회), 관계수급인 동반 합동<br>
+                    점검을 통한 도급사업 작업환경관리 (분기 1회)
+
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">부정적 영향 방지</td>
+                <td>안전보건 관리체계 구축</td>
+                <td>안전 및 보건 관련 법규 및 규정을 준수하고 임직원의 자율적 참여와 협력을 유도</td>
+                <td>안전보건관리책임자(공장장) 포함, 사용자 위원 5인과 근로자대표 포함,
+                    근로자 위원 5인이 참여하는 산업안전보건위원회 구성 및 운영
+                </td>
+            </tr>
+            <tr>
+                <td>안전사고 예방</td>
+                <td>재해율 0%, 중대재해 0건, 365일<br> 일무재해 달성
+                    (수급인 근로자 포함)
+                </td>
+                <td>2023년 기준, 수급인 근로자 포함 안전사고 0건</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>산업안전보건 관련 중장기 목표</h2>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>측정지표</th>
+                <th>25년</th>
+                <th>26년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>근로자</td>
+                <td>재해율</td>
+                <td>0건</td>
+                <td>0건</td>
+            </tr>
+            <tr>
+                <td>안전사고 예방</td>
+                <td>안전사고 건수</td>
+                <td>0건</td>
+                <td>0건</td>
+            </tr>
+            <tr>
+                <td>중대재해 예방</td>
+                <td>중대재해 건수</td>
+                <td>0건</td>
+                <td>0건</td>
+            </tr>
+            <tr>
+                <td>도급업체</td>
+                <td>안전사고 건수</td>
+                <td>0건</td>
+                <td>0건</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>403-2 위험 인지, 리스크 평가 및 사고조사</h2>
+    <p>당사는 직원의 건강과 안전을 위해 전 직원이 참여하는 위험성평가를 반기 1회 이상 수행하고 있으며, <br>
+        매주 안전관리자 점검을 통해 유해 위험 요소를 발굴 및 개선하고 있습니다. 2023년에는 야차사고를 분석하여<br> 사고 발생을 최소화 하고 있습니다.</p>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>위험요소발굴</th>
+                <th>개선</th>
+                <th>개선율</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>정기위험성 평가</td>
+                <td>2건</td>
+                <td>76건</td>
+                <td>76건</td>
+                <td>100%</td>
+            </tr>
+            <tr>
+                <td>작업 위험성 평가</td>
+                <td>32건</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>GRI 403 산업안전보건</h1>
+
+    <h2>403-3 업무상 보건서비스</h2>
+    <p>임직원의 건강한 삶을 지원하기 위해 직장 내 위생 관리, 근골격계 질환 관리 등을 실시하고 있습니다. 건강 검진 특이사항 발생한 임직원은 별도 상담을 통해 사후 관리를 함께 실시하고 있습니다. 사내 헬스장과 탁구장, 수면실, 도서대출, 식당, 기숙사 등을 보유하고 있습니다.</p>
+    
+    <h3>건강검진 수검현황</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>일반 검진</td>
+                <td>명</td>
+                <td>120</td>
+                <td>220</td>
+                <td>243</td>
+            </tr>
+            <tr>
+                <td>종합 검진</td>
+                <td>명</td>
+                <td>125</td>
+                <td>201</td>
+                <td>215</td>
+            </tr>
+            <tr>
+                <td>특수 검진</td>
+                <td>명</td>
+                <td>81</td>
+                <td>71</td>
+                <td>72</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>403-4 업무상 보건 및 안전에 관한 근로자 참여</h2>
+    <p>당사는 사업장 내 잠재 위험요인을 발굴하고 대책을 수립하기 위해 안전보건 관련 프로세스를 지속적으로 개선하고 있습니다. 안전보건경영시스템이 현장에서 체계적으로 운영될 수 있도록 지원 및 점검 활동을 수행하고 있으며, 특히 사업장 리스크 발생 시 즉각적인 원인조치를 위해 사업장의 무재해 달성을 위해 노력합니다.</p>
+
+    <h2>403-5 업무상 보건 및 안전에 관한 근로자 훈련</h2>
+    <p>당사는 정기적인 안전보건 교육의 실시로 구성원 및 사내 도급업체 직원들이 안전보건 의식 제고와 역량 강화를 도모합니다. 이를 통해 안전보건 실천사항을 모색하여 이행합니다.</p>
+    
+    <h3>2023년 안전보건 교육 현황</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>교육명</th>
+                <th>교육시간</th>
+                <th>수강인원</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>신규입사자 안전교육</td>
+                <td>8</td>
+                <td>6명</td>
+            </tr>
+            <tr>
+                <td>정기 안전보건교육</td>
+                <td>24</td>
+                <td>320명</td>
+            </tr>
+            <tr>
+                <td>관리감독자 정기교육</td>
+                <td>16</td>
+                <td>25명</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>403-6 근로자 건강 증진</h2>
+    <p>당사는 근로자의 건강 증진을 위해 종합 검진 지원 및 다양한 건강 증진 프로그램을 운영하고 있습니다.</p>
+    
+    <h3>2023년 주요 건강프로그램</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>건강 프로그램</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>스트레스 관리</td>
+                <td>
+                    스트레스 완화 프로그램<br>
+                    - 직무스트레스 조사 : 모바일 설문조사, 43문항<br>
+                    - 개인 심리검사 및 고위험자 개개 다면적성인성검사 및 상담
+                </td>
+            </tr>
+            <tr>
+                <td>체력 및 신체 단련</td>
+                <td>- 사내 헬스장 및 각종 동호회 운영</td>
+            </tr>
+            <tr>
+                <td>건강 지원</td>
+                <td>헬스케어 프로그램 <br>
+                    - 건강검진 결과 유소견자 대상 집중 케어 상담 실시</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>403-7 작업장 보건 및 안전 영향의 예방 및 완화</h2>
+    <p>당사는 사내에서 발생할 수 있는 재해를 예방하기 위해 안전담당팀에 사고 허가 후 작업을 진행하는 위험작업 허가제를 실시하고 있습니다. 고위험작업의 경우 안전담당자가 사전 안전교육을 진행하고, 작업 내용 확인 및 안전 작업 지도를 통해 재해를 예방하고 있습니다.</p>
+
+    <h2>403-8 보건 및 안전 관리 체계에 보장받는 근로자</h2>
+    <p>당사는 모든 구성원과 이해관계자의 안전과 행복 증진을 최우선 가치로 삼고 안전보건경영 시스템을 운영하고 있습니다. 2023년에는 안전보건 정책의 검토를 실시하여 대내외 안전 관련 규제 환경 변화에 맞추어 세부 지침을 개정하고, 도급업체에도 안전보건 정책의 준수를 권장합니다.</p>
+
+    <h2>403-9 업무 관련 부상</h2>
+    <p>당사는 중대재해를 예방 및 관리하기 위해 작업자 중심의 자율안전관리를 강화하였습니다. 작업자 중심의 안전관리가 운영될 수 있도록 환경을 조성하였으며, 팀별 지원체계를 구축하고 사업장의 위험도 수준도 고려하여 실효성 있는 지원 활동을 수행합니다. 또한 현장에서의 효과적인 중대재해 예방을 위해 사업장에서 반드시 지켜야 할 주요 안전 규칙을 수립하였습니다.</p>
+    
+    <h3>2023년 재해건수</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>근로자수</th>
+                <th>재해건수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>노루오토코팅</td>
+                <td>346</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>사내 도급업체</td>
+                <td>25</td>
+                <td>0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>403-10 업무 관련 질병</h2>
+    <p>당사는 2023년 무재해 사업장 입니다.</p>
+    
+    <h3>2023년 재해건수</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>근로자수</th>
+                <th>재해건수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>노루오토코팅</td>
+                <td>346</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>사내 도급업체</td>
+                <td>25</td>
+                <td>0</td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+<section id="gri404">
+    <h1>GRI 404 훈련 및 교육</h1>
+
+    <h2>404-1 훈련 및 교육 관리</h2>
+    <p>인재 육성 전략을 바탕으로 다양한 교육 프로그램을 통해 임직원의 성장을 지원하고 있습니다.</p>
+
+    <h3>임직원 교육 체계</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+ 
+        <tbody>
+            <tr>
+                <td>비즈니스 인재</td>
+                <td>
+                    [직무 및 전문인력 육성교육]<br>
+                    지속적인 자기 학습 전문 지식 축적 및 구성원의 브랜드 가치 상승<br>
+                    - 년 1회 직무교육 지원<br>
+                    - 전문인력 육성을 위한 대학원 학자금 지원
+                </td>
+            </tr>
+            <tr>
+                <td>인정 인재</td>
+                <td>
+                    [계층 교육 & 특별 교육(신입사원 및 승진자, 관리자 교육)]<br>
+                    자기 행동에 책임 및 본분을 다하고, 개인보다는 타인과 협력하여 유대네트워크 구축 및 조직 융화 달성<br>
+                    - 신입사원 입문교육<br>
+                    - 승진자교육<br>
+                    - 팀장교육
+                </td>
+            </tr>
+            <tr>
+                <td>글로벌 인재</td>
+                <td>
+                    [어학교육(글로벌 어학/문화 교육)]<br>
+                    글로벌 비즈니스 환경에서 효과적인 커뮤니케이션을 통한 글로벌 경쟁력 강화와 글로벌 리더 육성
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>임직원 교육 시간 및 교육비</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>총인원</td>
+                <td>377</td>
+                <td>360</td>
+                <td>346</td>
+            </tr>
+            <tr>
+                <td>총 교육시간</td>
+                <td>2,452</td>
+                <td>5,296</td>
+                <td>5,200</td>
+            </tr>
+            <tr>
+                <td>총 교육비</td>
+                <td>12,180,000</td>
+                <td>28,650,000</td>
+                <td>15,610,000</td>
+            </tr>
+            <tr>
+                <td>1인 평균 교육시간</td>
+                <td>6.5</td>
+                <td>14.7</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>1인 평균 교육비</td>
+                <td>32,310</td>
+                <td>79,580</td>
+                <td>45,116</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri405">
+    <h1>GRI 405 다양성과 기회균등</h1>
+
+    <h2>405-1 임직원 다양성 존중 및 차별 금지</h2>
+    <p>(주)노루오토코팅은 근로기준법, 모성보호법 등 관련 법령을 준수하고 취업규칙, 단체협약 등 제반 사규상 명시적으로 자녀 내지 후이익을 금하여 여성, 장애인 등의 채용을 통해 임직원의 다양성을 확보하고 있습니다.</p>
+    <p>매년 모든 임직원을 대상으로 성희롱 예방교육과 장애인 인식개선 교육을 실시하고, 인권보호를 위한 제도를 운영을 통해 임직원의 보호를 위한 시스템을 운영 중입니다. 또한 직장 내 괴롭힘 예방교육을 실시하는 등 건전한 사내문화 확립을 위해 노력하고 있습니다.</p>
+
+    <h3>임직원 다양성</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+    
+    
+            <colgroup>
+
+            </colgroup>
+
+            <thead>
+                <tr>
+                    <th colspan="3" rowspan="2" class="type-color-be">구분
+                    </th>
+                    <th colspan="2" class="type-color-be">2021년
+                    </th>
+                    <th colspan="2" class="type-color-be">2022년
+                    </th>
+                    <th colspan="2" class="type-color-be">2023년
+                    </th>
+                    <th class="type-color-be">비고</th>
+                </tr>
+                <tr>
+                    <th class="type-color-be">인원</th>
+                    <th class="type-color-be">비율</th>
+                    <th class="type-color-be">인원</th>
+                    <th class="type-color-be">비율</th>
+                    <th class="type-color-be">인원</th>
+                    <th class="type-color-be">비율</th>
+                    <th class="type-color-be"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th rowspan="5">여성리더십</th>
+                    <th rowspan="3">직급</th>
+                    <th class="text-main-line">전체 근로자 중 여성</th>
+                    <td>18</td>
+                    <td>5%</td>
+                    <td>18</td>
+                    <td>5%</td>
+                    <td>17</td>
+                    <td>5%</td>
+                    <td></td>
+                </tr>
+                <tr>
+
+                    <th class="text-main-line">전체 근로자 중 책임자</th>
+                    <td>263</td>
+                    <td>70%</td>
+                    <td>272</td>
+                    <td>76%</td>
+                    <td>277</td>
+                    <td>79%</td>
+                    <td rowspan="2">과장급<br>이상</td>
+                </tr>
+                <tr>
+                    <th class="text-main-line">전체 책임자 중 여성</th>
+                    <td>12</td>
+                    <td>3%</td>
+                    <td>12</td>
+                    <td>3%</td>
+                    <td>11</td>
+                    <td>3%</td>
+                </tr>
+
+                <tr>
+                    <th rowspan="2">계약형태</th>
+                    <th class="text-main-line">계약직 중 여성</th>
+                    <td>-</td>
+                    <td>0%</td>
+                    <td>-</td>
+                    <td>0%</td>
+                    <td>1</td>
+                    <td>0.30%</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th class="text-main-line">정규직 중 여성</th>
+                    <td>18</td>
+                    <td>5%</td>
+                    <td>18</td>
+                    <td>5%</td>
+                    <td>16</td>
+                    <td>5%</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <th rowspan="3" colspan="2">
+                        기타</th>
+                    <th class="text-main-line">고졸인재</th>
+
+                    <td>60</td>
+                    <td>16%</td>
+                    <td>59</td>
+                    <td>16%</td>
+                    <td>56</td>
+                    <td>16%</td>
+                    <td >-</td>
+                </tr>
+                <tr>
+                    <th class="text-main-line">보훈직원</th>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td ></td>
+                </tr>
+                <tr>
+                    <th class="text-main-line" >장애인
+                    </th>
+                    <td>3</td>
+                    <td>1%</td>
+                    <td>3</td>
+                    <td>1%</td>
+                    <td>6</td>
+                    <td>2%</td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        
+       
+    </table>
+
+    <h3>인권관련 교육현황</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>단위</th>
+                <th>2021년</th>
+                <th>2022년</th>
+                <th>2023년</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>교육시간</td>
+                <td>시간</td>
+                <td>1,428</td>
+                <td>1,344</td>
+                <td>1,300</td>
+            </tr>
+            <tr>
+                <td>교육인원</td>
+                <td>명</td>
+                <td>357</td>
+                <td>336</td>
+                <td>325</td>
+            </tr>
+            <tr>
+                <td>교육인원비율 (교육인원/전체임직원수)</td>
+                <td>%</td>
+                <td>94.7%</td>
+                <td>93.3%</td>
+                <td>93.1%</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri408">
+    <h1>GRI 408 아동노동</h1>
+
+    <h2>408 아동노동 관리</h2>
+    <p>(주)노루오토코팅은 18세 미만의 근로자가 없습니다. 취업규칙 내 18세 미만의 근로자를 채용할 경우 친권자 또는 후견인의 동의서를 수령해야 한다고 표기되어 있습니다. 또한 18세 미만의 근로자는 휴일 및 야간근로 금지 등 아동 노동에 대한 사항이 있습니다.</p>
+
+    <h2>408-1 아동 노동 발생 위험이 높은 사업장 및 공급업체</h2>
+    <p>(주)노루오토코팅의 주요 협력사의 취업규칙상 아동노동에 대한 사항을 확인하였으며, 차별/학대, 아동/강제노동, 노동법규 미준수 등 중대한 인권 리스크가 있는 협력사는 발견되지 않았습니다.</p>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>주요 평가 항목</th>
+                <th>주요내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>노동/인권 일반</td>
+                <td>
+                    1) 근로기준법 보유<br>
+                    2) 수당 및 퇴직 관리<br>
+                    3) 교육 및 육아 지원<br>
+                    4) 안전, 보건<br>
+                    5) 작업 환경 개선<br>
+                    6) 직장 내 괴롭힘 예방<br>
+                    7) 고충처리 시스템 운영
+                </td>
+            </tr>
+            <tr>
+                <td>차별금지, 괴롭힘 금지</td>
+                <td>성별, 인종, 국적, 장애, 나이, 정치적 견해 등</td>
+            </tr>
+            <tr>
+                <td>아동노동, 강제노동 금지</td>
+                <td>아동노동, 강제노동 금지</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri409">
+    <h1>GRI 409 강제노동</h1>
+
+    <h2>409 강제노동 관리</h2>
+    <p>보고 기간 중 강제노동 사고가 발생하지 않았습니다. (주)노루오토코팅 취업규칙 제2조 11조에 회사는 업무상 필요한 때 법정 근로시간 한도 내에서만 <br>
+        근무시간을 연장하거나 야간근로 또는 휴일근로를 할 수 있도록 되어 있으며, 해당건들에 관해서는 사전/후 인사회의 승인을 받게 되어 있어 강제노동 <br>
+        사고에 대하여 철저히 관리되고 있습니다. ※ 취업규칙 첨부</p>
+
+    <h2>409-1 강제 노동 발생 위험이 높은 사업장 및 공급업체</h2>
+    <p>(주)노루오토코팅의 주요 협력사의 취업규칙상 아동노동에 대한 사항을 확인하였으며, 차별/학대, 아동/강제노동, 노동법규 미준수 등 <br>
+        중대한 인권 리스크가 있는 협력사는 발견되지 않았습니다.</p>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>주요 평가 항목</th>
+                <th>주요내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>노동/인권 일반</td>
+                <td>
+                    1) 근로기준법 보유<br>
+                    2) 수당 및 퇴직 관리<br>
+                    3) 교육 및 육아 지원<br>
+                    4) 안전, 보건<br>
+                    5) 작업 환경 개선<br>
+                    6) 직장 내 괴롭힘 예방<br>
+                    7) 고충처리 시스템 운영
+                </td>
+            </tr>
+            <tr>
+                <td>차별금지, 괴롭힘 금지</td>
+                <td>성별, 인종, 국적, 장애, 나이, 정치적 견해 등</td>
+            </tr>
+            <tr>
+                <td>아동노동, 강제노동 금지</td>
+                <td>아동노동, 강제노동 금지</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri413">
+    <h1>GRI 413 지역사회</h1>
+
+    <h2>413 지역사회 참여 정책</h2>
+    <p>(주)노루오토코팅은 지역 사회와의 나눔에 동참하여 사회적 책임을 다하는 다양한 사회공헌 활동을 통해 함께 더 나은 미래를 만들어가고 있습니다. 기업의 활동은 지역사회 경제, 환경 및 인권에 긍정적인 영향을 미칠 수 있습니다. 지역사회와의 상호 이익과 안정적인 관계를 도모하는 상태에서 중장기적으로 더 많은 긍정적 영향을 미칠 수 있으며, 나아가 인근 지역의 발전과 성장에 기여할 수 있습니다. 본 문서는 지역사회와의 상생 협력을 통해 지역사회 내 다양한 조직과 협력하여 긍정적인 영향을 미치는 것을 목표로 자원 제공 및 협력 활동 등의 전략적 계획을 수립하고 실행하고 있습니다. 노력을 통해 지역사회와의 지속적인 대화를 통해 상호 협력을 이어가고 있으며, 노루오토코팅은 사회공헌뿐만 아니라 비즈니스 측면에서도 다양한 분야에서 협력해나갈 것입니다.</p>
+
+    <h3>지역 사회 참여 정책</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 20%;">
+            <col style="width: 80%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>서문</td>
+                <td>(주)노루오토코팅은 기업의 사회적 책임을 다하고 지역 사회와의 지속 가능한 발전에 기여하며 다양한 사회공헌활동을 전개하고 있습니다. 본 정책서는 중장기적으로 지역사회와의 협력 강화를 통해 사회적 가치를 창출하고, 모두가 함께 발전할 수 있는 기반을 마련하고 있습니다.</td>
+            </tr>
+            <tr>
+                <td>1. 기본 원칙 및 방향</td>
+                <td>
+                    <strong>1.1 지역사회 존중</strong><br>
+                    - 지역사회의 문화, 전통, 가치를 존중하며, 지역 주민의 의견을 경청하고 이를 반영하여 사회공헌활동을 계획하고 실행합니다.<br>
+                    <strong>1.2 지속 가능한 발전</strong><br>
+                    - 지역사회의 지속 가능한 발전을 목표로, 단기적인 지원을 넘어 장기적으로 긍정적인 영향을 미칠 수 있는 사회공헌활동을 추진합니다.<br>
+                    <strong>1.3 상생 협력</strong><br>
+                    - 지역사회의 상생 협력을 통해 공동의 목표를 달성하며, 지역사회와의 상호 요구에 부응하는 활동을 전개합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>2. 사회공헌활동 분야</td>
+                <td>
+                    <strong>2.1 환경 보호</strong><br>
+                    - 지역사회 환경보전을 위한 활동에 지역사회의 참여를 유도하며 인위적 오염 제거, 청소 활동, 환경 교육 등 다양한 환경 보호 활동을 실시합니다.<br>
+                    <strong>2.2 복지 증진</strong><br>
+                    - 취약계층 지원, 건강 증진 프로그램 등을 통해 지역사회의 복지 수준 향상을 위해 복지 활동을 전개합니다.<br>
+                    - 지역사회 복지시설과 협력하여 필요한 활동 및 서비스를 지원합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>3. 지역사회와의 소통</td>
+                <td>
+                    <strong>3.1 지역사회 파트너십 구축</strong><br>
+                    - 지역사회 단체, 비영리 기관, 공공 기관 등과의 파트너십을 구축하여 협력적인 사회공헌 활동을 전개합니다.<br>
+                    - 다양한 이해관계자와의 협력을 통해 사회적 영향력을 극대화합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>결론</td>
+                <td>(주)노루오토코팅은 지역사회 참여 정책을 통해 지역사회와의 지속 가능한 발전에 기여하며, 모든 이해관계자와 함께 사회적 가치를 창출하기 위해 노력할 것입니다. 우리는 지역사회의 일원으로서 책임을 다하고, 더 나은 미래를 함께 만들어가겠습니다.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>지역 사회 참여를 위한 활동</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>프로세스</th>
+                <th>목표</th>
+                <th>결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>지역사회 취약계층 지원</td>
+                <td>지역사회 저소득층 생활 환경 개선</td>
+                <td>장안면 관내 취약계층 성금 기부 (독거노인, 한부모가정, 장애인) - '23년 500만 원 기부</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri414">
+    <h1>GRI 414 공급업체 사회 영향 평가</h1>
+
+    <h2>공급업체 사회 영향 평가</h2>
+    <p>(주)노루오토코팅은 주기적인 협력사 평가를 통해 신규 및 기존 등록 협력사에 대한 품질, 납기, 안전보건, 환경경영 등에 대한 모니터링을 실시하여 공급망 ESG 경영수준을 높이고자 합니다. 이에 전체 대상 중 249개 협력사 중 중점관리 대상 업체 35개사(14%)를 선정하였으며, 평가 결과 ESG 경영 수준이 미흡한 공급업체에 대해서는 지속적으로 ESG 교육 협력 및 순환 평가를 진행하여 협력사 ESG 수준을 실질적으로 제고할 수 있는 방안을 도출하는 방향으로 공급망 지속가능성 관련 이슈를 검토할 계획입니다. 공급망 정기 평가는 총 35개 집중관리 대상 업체에 한하여 진행하고 있습니다.</p>
+
+    <h2>414-1 사회적 기준에 따른 심사를 거친 신규 공급업체</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>영역</th>
+                <th>평가요소</th>
+                <th>평가대상 수</th>
+                <th>집중관리 대상 수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>환경</td>
+                <td>환경경영시스템</td>
+                <td rowspan="4">249개사</td>
+                <td rowspan="4">35개사(15%)</td>
+            </tr>
+            <tr>
+                <td rowspan="3">사회</td>
+                <td>안전보건</td>
+            </tr>
+            <tr>
+               
+                <td>노동</td>
+            </tr>
+            <tr>
+                <td>품질</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>414-2 공급망 내 부정적 사회적 영향 및 그에 대한 대응조치</h3>
+    <p>(주)노루오토코팅은 총 35개 대상 업체 중 33개 업체에 대하여 공급망 ESG 평가를 완료하였습니다. 이 중 중대한 환경 영향이 발생하였거나, 환경 요인 관리를 강화해야 하는 협력사는 발견되지 않았습니다.</p>
+
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                
+                <th>대상 업체 수</th>
+                <th>평가 업체 수</th>
+                <th>평가 비율(%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+                <td>35</td>
+                <td>33</td>
+                <td>94%</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="gri415">
+    <h1>GRI 415 공공정책</h1>
+
+    <h2>415 정치 기부금</h2>
+    <p>보고 기간 중 정치적 목적의 기부 및 후원을 실행한 사항이 없습니다.</p>
+</section>
+
+
+<section id="gri416">
+    <h1>GRI 416 고객 안전보건</h1>
+
+    <h2>416 고객 안전보건 관리</h2>
+    <p>고객 안전보건(거래처 권익 보호) 활동은 무관심이나 미비한 관리로 인한 사고 발생을 예방함과 동시에 고객 만족도를 향상시켜 기업이미지를 개선하는 데 긍정적 영향을 줍니다. 화학물질 취급 시 위험을 줄이고 자주적인 사고 예방을 위해 노력하고 있습니다. 이를 위해 사고 발생 시 신속한 대응을 위한 매뉴얼을 작성하여 적용하고, 발생한 피해에 대해서는 적절한 보상을 제공하여 부정적인 영향이 확산되는 것을 방지하고 있습니다.</p>
+
+    <h3>거래처 권익 보호 정책</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <colgroup>
+            <col style="width: 20%;">
+            <col style="width: 80%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>서문</td>
+                <td>(주)노루오토코팅은 모든 거래처가 공정하고 안전하게 제품과 서비스를 이용할 수 있도록 MSDS 등을 제공하고 있습니다.</td>
+            </tr>
+            <tr>
+                <td>1. 기본 원칙</td>
+                <td>
+                    <strong>1.1 거래처 존중</strong><br>
+                    - 모든 거래처를 존중하며, 거래처의 의견과 권리를 중시합니다. 거래처의 요구와 기대를 충족시키기 위해 노력합니다.<br>
+                    <strong>1.2 투명한 정보 제공</strong><br>
+                    - 정확한 제품 정보를 제공합니다.<br>
+                    <strong>1.3 안전 및 품질 보장</strong><br>
+                    - 제품의 안전성과 품질을 보장하기 위해 최선을 다하며, 지속적인 개선을 통해 거래처 만족을 극대화합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>2. 거래처 권익 보호</td>
+                <td>
+                    <strong>2.1 공정 거래</strong><br>
+                    - 모든 거래 과정에서 공정성을 유지하고, 부당한 거래 조건을 강요하지 않습니다. 가격, 계약 조건 등을 투명하게 공개합니다.<br>
+                    <strong>2.2 개인정보 보호</strong><br>
+                    - 거래처의 개인정보를 철저히 보호하며, 관련 법규를 준수하여 안전하게 관리합니다. 개인정보 유출 방지 위한 보안 시스템을 지속적으로 강화합니다.<br>
+                    <strong>2.3 거래처 불만 및 피해 구제</strong><br>
+                    - 거래처의 불만을 신속하고 공정하게 처리하며, 피해 발생 시 적절한 보상과 구제를 제공합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>3. 정보 제공 및 교육</td>
+                <td>
+                    <strong>3.1 정확한 제품 정보 제공</strong><br>
+                    - 제품 및 서비스에 대한 정확한 정보를 제공합니다.<br>
+                    <strong>3.2 거래처 교육</strong><br>
+                    - 거래처가 제품과 서비스를 올바르게 이용할 수 있도록 교육 프로그램을 운영합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>4. 거래처 소통 강화</td>
+                <td>
+                    <strong>4.1 거래처 의견 수렴</strong><br>
+                    - 다양한 소통 채널을 통해 거래처의 의견을 수렴하고, 이를 제품 및 서비스 개선에 반영합니다.<br>
+                    <strong>4.2 거래처와의 파트너십</strong><br>
+                    - 거래처와의 지속적인 소통을 통해 신뢰를 구축하고, 상호 발전을 도모합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>5. 내부 규정 및 지속적 개선</td>
+                <td>
+                    <strong>5.1 내부 규정 및 절차</strong><br>
+                    - 거래처 권익 보호를 위한 내부 규정과 절차를 마련하고, 모든 임직원이 이를 준수하도록 교육합니다.<br>
+                    <strong>5.2 지속적인 개선</strong><br>
+                    - 거래처 권익 보호를 위한 정책과 절차를 지속적으로 평가하고 개선하여, 변화하는 요구와 시장 환경에 대응합니다.
+                </td>
+            </tr>
+            <tr>
+                <td>결론</td>
+                <td>(주)노루오토코팅은 거래처 권익 보호 정책을 통해 모든 거래처가 안심하고 제품과 서비스를 이용할 수 있도록 최선을 다할 것입니다. 우리는 거래처와의 신뢰를 바탕으로 지속 가능한 성장을 추구하며, 거래처와 함께 더 나은 미래를 만들어 나가겠습니다.</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+<section id="gri418" style="height: 800px;">
+    <h1>GRI 418 고객 개인 정보 관리</h1>
+
+    <h2>418 고객개인정보 관리</h2>
+    <p>(주)노루오토코팅은 「개인정보보호법」 등 모든 관련 법규를 준수하며, 내부 보안규정에 따라 고객의 개인정보가 보호받을 수 있도록 최선을 다하고 있습니다.</p>
+
+    <h3>개인정보보호 관리를 위한 활동</h3>
+    <table class="worker-info-table" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>구분</th>
+                <th>프로세스</th>
+                <th>목표</th>
+                <th>결과</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="3">개인정보보호 관리 활동</td>
+                <td>정보에 대한 인식개선</td>
+                <td>정보를 중요한 자산으로 인식하고 취급</td>
+                <td>중요 정보 자산에 대한 접근 제한 및 인증 절차 운영, 정보 외부 유출시 상위 직책자 승인</td>
+            </tr>
+            <tr>
+                <td>정보보호 교육</td>
+                <td>임직원 대상, 정보보호 중요성 및 관리능력 교육</td>
+                <td>개인정보 취급자 정보보안 교육 진행</td>
+            </tr>
+            <tr>
+                <td>정보보호 사고 대응계획 수립 및 훈련</td>
+                <td>악성메일 유입 시 사전차단 및 예방수칙 안내</td>
+                <td>악성메일 모의훈련 년 2회 실시 정보보호 인식개선 캠페인을 화면보호기에 적용</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+</div>
+    </main>
+    <button id="topButton" class="top-button">↑</button>
+  </div>
+  
+
+			<div id="footer">
+				<!--#include virtual="/include/footer.asp"-->
+			</div>
+			<!--//footer section-->
+
+		</div>
+		<!--//container section-->
+	</div>
+	<!--//wrap section-->
+	<script>
+		// Add active class to current section in navigation
+		const sections = document.querySelectorAll('section');
+		const navLinks = document.querySelectorAll('.nav-menu a');
+
+		window.addEventListener('scroll', () => {
+			let current = '';
+			sections.forEach(section => {
+				const sectionTop = section.offsetTop;
+				const sectionHeight = section.clientHeight;
+				if (pageYOffset >= sectionTop - 150) {
+					current = section.getAttribute('id');
+				}
+			});
+
+			navLinks.forEach(link => {
+				link.classList.remove('active');
+				if (link.getAttribute('href').substring(1) === current) {
+					link.classList.add('active');
+				}
+			});
+		});
+
+		// Set the first link as active when the page loads
+		document.addEventListener('DOMContentLoaded', () => {
+			if (navLinks.length > 0) {
+				navLinks[0].classList.add('active');
+			}
+		});
+
+    // 버튼
+    // Show the button when the user scrolls down 100px from the top
+window.onscroll = function() {
+    const topButton = document.getElementById("topButton");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        topButton.style.display = "block";
+    } else {
+        topButton.style.display = "none";
+    }
+};
+
+// Scroll to the top when the button is clicked
+document.getElementById("topButton").onclick = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+window.addEventListener('scroll', function() {
+    const nav = document.querySelector('.nav-container');
+    const content = document.querySelector('.content');
+    const contentRect = content.getBoundingClientRect();
+    const navHeight = nav.offsetHeight;
+
+    if (contentRect.top <= 0 && contentRect.bottom >= navHeight) {
+        nav.style.top = '0';
+    } else if (contentRect.bottom < navHeight) {
+        nav.style.top = `${contentRect.bottom - navHeight}px`;
+    } else {
+        nav.style.top = `${contentRect.top}px`;
+    }
+});
+	</script>
+</body>
+
+</html>
